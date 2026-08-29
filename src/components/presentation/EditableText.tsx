@@ -1,6 +1,8 @@
 import { useEffect, useRef, type ElementType } from "react";
 import { useDeckStore } from "./store";
+
 interface EditableTextProps { id: string; value: string; as?: ElementType; className?: string; singleLine?: boolean; }
+
 export function EditableText({ id, value, as, className, singleLine = false }: EditableTextProps) {
   const Tag = (as ?? "span") as ElementType;
   const { editMode, getText, setText, getFontSize, selectText, selectedTextId, resetKey } = useDeckStore();
