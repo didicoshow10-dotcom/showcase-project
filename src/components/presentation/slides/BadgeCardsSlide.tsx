@@ -15,24 +15,21 @@ interface BadgeCardsSlideProps {
 }
 
 export function BadgeCardsSlide({ index, scale, kicker, title, cards, columns, note, compact = false }: BadgeCardsSlideProps) {
-  const twoRows = cards.length > columns;
-  const useTwoByTwo = cards.length === 4;
-  const effectiveColumns = useTwoByTwo ? 2 : columns;
-  const cardHeight = useTwoByTwo ? 270 : (twoRows ? (columns === 2 ? 245 : 215) : 300);
-  const safeBottom = 190;
+  const fourCards = cards.length === 4;
+  const effectiveColumns = fourCards ? 2 : columns;
   return (
     <ContentFrame index={index} scale={scale} kicker={kicker} title={title}>
-      <div className="flex flex-col" style={{ maxHeight: `calc(100% - ${safeBottom}px)`, overflow: "hidden" }}>
+      <div className="flex flex-col">
         <div className="grid items-stretch gap-6" style={{ gridTemplateColumns: `repeat(${effectiveColumns}, minmax(0, 1fr))` }}>
           {cards.map((card, cardIndex) => (
-            <article key={cardIndex} className={`flex flex-col rounded-[22px] border border-lilac-deep/60 bg-card ${compact ? "px-7 py-6" : "px-8 py-7"}`} style={{ boxShadow: "var(--shadow-card)", height: cardHeight }}>
-              <div className="min-h-[42px] flex items-start">
-                <span className="slide-chrome inline-flex max-w-full rounded-full bg-plum px-4 py-2 font-bold uppercase tracking-[0.08em] text-primary-foreground leading-tight">
-                  <EditableText id={`badge-card-badge-${index}-${cardIndex}`} value={card.badge} className="text-left" />
+            <article key={cardIndex} className={`flex flex-col rounded-[22px] border border-lilac-deep/60 bg-card ${compact ? "px-6 py-5" : "px-7 py-6"}`} style={{ boxShadow: "var(--shadow-card)", minHeight: fourCards ? 230 : 250 }}>
+              <div className="flex min-h-[36px] items-start">
+                <span className="slide-chrome inline-flex max-w-full rounded-full bg-plum px-3 py-1.5 font-bold uppercase tracking-[0.06em] leading-tight text-primary-foreground">
+                  <EditableText id={`badge-card-badge-${index}-${cardIndex}`} value={card.badge} className="text-left text-[15px] leading-[1.15]" />
                 </span>
               </div>
-              <EditableText id={`badge-card-body-${index}-${cardIndex}`} as="p" value={card.body} className={`mt-4 block text-plum-deep ${useTwoByTwo ? "slide-body-lg" : "slide-body"}`} />
-              {card.meta ? <EditableText id={`badge-card-meta-${index}-${cardIndex}`} as="p" value={card.meta} className="mt-auto pt-4 block slide-caption text-crimson" /> : null}
+              <EditableText id={`badge-card-body-${index}-${cardIndex}`} as="p" value={card.body} className={`mt-3 block text-plum-deep ${fourCards ? "text-[20px] leading-[1.28]" : "slide-body"}`} />
+              {card.meta ? <EditableText id={`badge-card-meta-${index}-${cardIndex}`} as="p" value={card.meta} className={`mt-auto block text-crimson ${fourCards ? "text-[15px] leading-[1.25] pt-3" : "slide-caption mt-2"}`} /> : null}
             </article>
           ))}
         </div>
