@@ -75,6 +75,8 @@ export function EditableImage({ id, src, alt, x, y, width, height, className, sc
     { kind: "se", style: { right: -handleSize / 2, bottom: -handleSize / 2, cursor: "nwse-resize" } },
   ];
 
+  const backgroundViewOnly = cover && !editMode;
+
   return (
     <div
       data-editable-image="true"
@@ -85,25 +87,58 @@ export function EditableImage({ id, src, alt, x, y, width, height, className, sc
         top: state.y,
         width: state.width,
         height: state.height,
-        cursor: editMode ? "move" : "default",
-        touchAction: editMode ? "none" : undefined,
+        cursor: editMode && !backgroundViewOnly ? "move" : "default",
+        touchAction: editMode && !backgroundViewOnly ? "none" : undefined,
+        pointerEvents: backgroundViewOnly ? "none" : "auto",
         zIndex: cover ? 0 : active ? 40 : undefined,
       }}
       onPointerDown={(event) => beginDrag(event, "move")}
-      onMouseEnter={() => setActive(true)}
-      onMouseLeave={() => setActive(false)}
+      onMouseEnter={() => {
+        if (!backgroundViewOnly) setActive(true);
+      }}
+      onMouseLeave={() => {
+        if (!backgroundViewOnly) setActive(false);
+      }}
     >
-      <img src={state.src} alt={alt} draggable={false} className={className} style={{ width: "100%", height: "100%", objectFit: cover ? "cover" : "contain", pointerEvents: "none", userSelect: "none" }} />
+      <img
+        src={state.src}
+        alt={alt}
+        draggable={false}
+        className={className}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: cover ? "cover" : "contain",
+          pointerEvents: "none",
+          userSelect: "none",
+        }}
+      />
+
       {editMode && active ? (
         <>
           {corners.map((corner) => (
-            <span key={corner.kind} onPointerDown={(event) => beginDrag(event, corner.kind)} className="absolute rounded-full border-2 border-background bg-accent" style={{ width: handleSize, height: handleSize, ...corner.style }} />
+            <span
+              key={corner.kind}
+              onPointerDown={(event) => beginDrag(event, corner.kind)}
+              className="absolute rounded-full border-2 border-background bg-accent"
+              style={{ width: handleSize, height: handleSize, ...corner.style }}
+            />
           ))}
-          <button type="button" onPointerDown={(event) => event.stopPropagation()} onClick={(event) => { event.stopPropagation(); fileInputRef.current?.click(); }} className="absolute left-1/2 rounded-full bg-accent px-4 py-2 font-semibold text-accent-foreground shadow-lg" style={{ bottom: -46, transform: "translateX(-50%)", fontSize: 20, whiteSpace: "nowrap" }}>
+          <button
+            type="button"
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={(event) => {
+              event.stopPropagation();
+              fileInputRef.current?.click();
+            }}
+            className="absolute left-1/2 rounded-full bg-accent px-4 py-2 font-semibold text-accent-foreground shadow-lg"
+            style={{ bottom: -46, transform: "translateX(-50%)", fontSize: 20, whiteSpace: "nowrap" }}
+          >
             Substituir
           </button>
         </>
       ) : null}
+
       <input ref={fileInputRef} type="file" accept="image/*" hidden onChange={handleFile} />
     </div>
   );
