@@ -50,7 +50,7 @@ export function KpiSlide({ index, scale }: SlideProps) {
         {SLIDE_12.rows.map((row, rowIndex) => (
           <div
             key={rowIndex}
-            className={`grid items-center px-12 py-6 ${
+            className={`grid items-center px-12 py-4 ${
               rowIndex % 2 === 1 ? "bg-lilac/45" : "bg-card"
             }`}
             style={{ gridTemplateColumns: "1fr 0.65fr 0.45fr" }}
