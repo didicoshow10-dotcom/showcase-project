@@ -3,8 +3,8 @@ import { Deck } from "@/components/presentation/Deck";
 import { DeckStoreProvider } from "@/components/presentation/store";
 import { ExportBar } from "@/components/presentation/ExportBar";
 
-const TITLE = "Proposta de Atuação · Coordenador(a) de Marketing | iCEV";
-const DESCRIPTION = "Apresentação em 16 slides com o plano de atuação dos primeiros 3 meses como Coordenador(a) de Marketing do iCEV: captação de alunos, canais, KPIs e clima organizacional.";
+const TITLE = "Proposta de Atuação · Coordenador de Marketing | iCEV";
+const DESCRIPTION = "Apresentação com o plano de atuação dos primeiros 3 meses como Coordenador de Marketing do iCEV: captação de alunos, jornada do candidato, gestão por dados e clima organizacional.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
