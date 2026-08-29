@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FileDown, Presentation, Loader2 } from "lucide-react";
 import { exportDeckPdf, exportDeckPptx } from "./exporters";
 
@@ -42,8 +42,12 @@ async function openExportWindow(format: "pdf" | "pptx") {
 export function ExportBar() {
   const [loading, setLoading] = useState<"pdf" | "pptx" | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [printMode, setPrintMode] = useState(true);
 
-  if (new URLSearchParams(window.location.search).has("print")) return null;
+  useEffect(() => {
+    setPrintMode(new URLSearchParams(window.location.search).has("print"));
+  }, []);
+
 
   const run = async (format: "pdf" | "pptx") => {
     setError(null);
@@ -52,6 +56,8 @@ export function ExportBar() {
     catch (e) { setError(e instanceof Error ? e.message : "Não foi possível exportar."); }
     finally { setLoading(null); }
   };
+
+  if (printMode) return null;
 
   return (
     <div className="fixed right-5 top-[78px] z-40 flex items-center gap-2 rounded-2xl border border-white/10 bg-ink/90 p-2 shadow-2xl backdrop-blur">
