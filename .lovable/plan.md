@@ -1,82 +1,93 @@
-# Réplica fiel da apresentação iCEV
+# Apresentação iCEV — Proposta de Atuação (16 slides editáveis)
 
-Reconstruir o projeto atual como uma apresentação de 16 slides idêntica ao site publicado `https://projeto-icev.lovable.app`, mantendo todos os textos e logos editáveis no código.
+Construir no projeto atual a apresentação "Proposta de Atuação — Coordenador(a) de Marketing" do iCEV, replicando fielmente o layout, paleta e conteúdo do deck de referência `projeto-icev.lovable.app`, e aplicando os ajustes de conteúdo e edição solicitados.
 
-## O que será entregue
+Observação importante: este projeto está vazio (só tem o placeholder padrão). O deck de referência vive em outra conta e não pode ser copiado como código — ele foi mapeado slide a slide por screenshots e extração de texto. Portanto a construção aqui é uma réplica fiel, e os "ajustes" listados são aplicados já nessa primeira versão, não como retrabalho.
 
-- Aplicação de apresentação full-screen com 16 slides.
-- Navegação por setas do teclado, botões na tela e contador `X / 16`.
-- Top bar com título, subtítulo e botões de ação (estáticos: Editar, Grade, Apresentar, PDF, Restaurar).
-- Rodapé com marca iCEV e contador.
-- Dois temas visuais: slides 1, 15 e 16 com fundo escuro + foto do campus; demais slides com fundo claro + sidebar roxa e círculos decorativos.
-- Todos os textos extraídos dos 16 slides replicados exatamente.
-- Logo iCEV e imagem do campus como assets editáveis (upload para CDN + referência em `.asset.json`).
-- Favicon derivado do logo iCEV.
-- Metadados SEO únicos na rota `/`.
+## Estrutura fixa: 16 slides, nesta ordem
+
+Capa → Sumário → Contexto → Diagnóstico → Mês 1 → Mês 2 → Mês 3 → Mensagem por Curso → Canais → Jornada do Candidato → Clima Organizacional → KPIs → Resultados Esperados → Diferenciais → Conclusão → Encerramento.
+
+Ordem e quantidade não mudam.
+
+## Ajustes de conteúdo aplicados
+
+**Slide 11 — Clima organizacional e engajamento.** Seis ações explícitas, com "Engajamento e sentimento de pertencimento" como item nomeado:
+comunicação interna; engajamento e sentimento de pertencimento; colaboração e troca de ideias; reconhecimento de resultados e boas iniciativas; criatividade e inovação; integração entre Marketing, Comercial, Coordenações e demais áreas.
+
+**Slide 16 — Encerramento.** Mantém agradecimento, campos de contato (nome, e-mail, telefone), prazo `31/08/2026 às 10h` e e-mail `amandaleticia@grupocev.com`, e traz em destaque o lembrete de que o portfólio profissional será enviado em anexo, separadamente desta apresentação.
+
+## Ajustes de layout
+
+**Slides 15 e 16 herdam a composição do Slide 1.** Um único componente de capa (`CoverSlide`) parametrizado por conteúdo é usado nos três: mesma foto do campus ao fundo, mesmo overlay roxo, logo no mesmo ponto, badge pill, título grande, subtítulo e bloco de linhas de apoio nas mesmas posições. Muda só o texto:
+
+| Slide | Badge | Título | Subtítulo |
+|---|---|---|---|
+| 01 | PRIMEIROS 3 MESES | Proposta de Atuação | Coordenador(a) de Marketing |
+| 15 | FECHAMENTO | Conclusão | Presença em captação, captação em matrícula |
+| 16 | INFORMAÇÕES DO PROCESSO | Obrigado(a). | iCEV – Instituto de Ensino Superior \| Teresina/PI |
+
+## Edição na interface
+
+**Todo texto é editável inline, sem exceção** — títulos, subtítulos, kickers, corpo, itens de lista, células da tabela de KPIs, rótulos de badge, rodapé. Implementado por um componente `EditableText` (contentEditable com estilo herdado) usado em todo lugar onde há texto de slide. Clicar posiciona o cursor; sair salva.
+
+**Toda imagem/logo é editável** — componente `EditableImage` com:
+- Substituir: clique abre seletor de arquivo, lê como data URL.
+- Redimensionar: alças nos cantos, arraste proporcional.
+- Reposicionar: arraste livre dentro do slide.
+
+**Persistência.** Todo o conteúdo (textos, imagens, posições, tamanhos) vive num store React único, serializado em `localStorage`. Botão "Restaurar" volta ao conteúdo original. Sem backend.
+
+## Arquitetura de slides
+
+Seguindo o padrão de deck escalado:
+
+- Slides renderizam em **1920×1080 fixos** e escalam com `transform: scale(min(scaleX, scaleY))`, absolutamente centrados, container pai com `overflow: hidden`.
+- Tipografia semântica em tokens `--slide-title`, `--slide-subtitle`, `--slide-body`, `--slide-caption`, `--slide-kicker`, `--slide-chrome` definidos em `src/styles.css`, com classes `.slide-title`, `.slide-body`, etc. Nada de `text-lg` para texto de slide.
+- Máximo de 6 linhas de conteúdo por slide, respeitando o limite pedido.
+- Navegação: setas ←/→, botões na tela, e indicador de progresso `NN / 16` no rodapé.
+- Índice do slide na URL (`?slide=N`) via `replaceState`, para refresh e compartilhamento manterem a posição.
+- `document.title` sincronizado com o slide atual.
+- Modo grade (tecla `G`) e modo apresentação em tela cheia.
+- Rota de impressão (`?print`) que empilha os 16 slides para exportar PDF.
+
+## Paleta e identidade
+
+Extraídas do deck de referência, definidas como tokens em `src/styles.css` (oklch), sem cores hardcoded nos componentes:
+
+- Roxo institucional profundo (fundo dos slides de capa e sidebar)
+- Roxo médio (gradientes de cards e cabeçalho de tabela)
+- Magenta/vinho de destaque (kickers, números, badges, bullets)
+- Fundo claro quase branco com leve tom lilás (slides de conteúdo)
+- Círculos decorativos grandes em lilás translúcido no canto superior direito e inferior esquerdo
+- Barra vertical roxa na borda esquerda dos slides claros
+
+Estilo institucional e elegante, sem poluição visual. Linguagem formal e acessível.
+
+## Responsividade
+
+- Desktop: deck escalado ao viewport, chrome completo.
+- Mobile: mesma escala proporcional, chrome compacto, navegação por swipe além dos botões.
 
 ## Assets
 
-1. Fazer upload do logo `icev-logo.jpg` e da imagem do campus `icev-campus.png` via `lovable-assets create`, gerando ponteiros `.asset.json` em `src/assets/`.
-2. Criar favicon quadrado a partir do logo em `public/favicon.png` e atualizar `src/routes/__root.tsx`.
-3. Remover o favicon padrão `public/favicon.ico`.
+- Logo iCEV e foto do campus baixados do deck de referência, enviados via `lovable-assets` e referenciados por ponteiros `.asset.json` em `src/assets/`.
+- Favicon quadrado gerado a partir do logo em `public/favicon.png`, declarado em `src/routes/__root.tsx`; o `favicon.ico` padrão é removido.
 
-## Design system
+## Arquivos
 
-- Cores principais:
-  - Roxo escuro de fundo: `#1a0b2e` / similar
-  - Roxo médio: `#4a2b6b`
-  - Magenta/rosa destaque: `#c2185b`
-  - Fundo claro dos slides: branco / `#f8f5fa`
-  - Texto escuro: `#1f0a33`
-- Tipografia: fonte sans-serif, pesos bold para títulos.
-- Elementos decorativos: círculos grandes com gradiente roxo/rosa e opacidade baixa; sidebar roxa à esquerda nos slides claros.
-- Cards com bordas arredondadas, sombras suaves e bordas finas.
-- Botões de navegação arredondados, estilo pill.
-
-## Estrutura do app
-
-- Substituir `src/routes/index.tsx` pelo componente principal da apresentação.
-- Criar `src/components/presentation/`:
-  - `PresentationShell.tsx`: layout com top bar, rodapé e navegação.
-  - `SlideRenderer.tsx`: renderiza o slide ativo por índice.
-  - `slides/`: um componente por slide (01 a 16) ou um único arquivo `slides.tsx` com array de configuração + componentes.
-- Estado global do slide atual via `useState` + `useEffect` para listeners de teclado (`ArrowLeft`, `ArrowRight`).
-- Persistir slide atual no `localStorage` para restaurar ao recarregar (botão Restaurar).
-
-## Slides
-
-Replicar cada um dos 16 slides com base nos screenshots e texto extraído:
-
-1. **Capa**: fundo escuro + campus, logo, badge "PRIMEIROS 3 MESES", título, subtítulo, campos editáveis de nome/email/telefone/data.
-2. **Sumário**: 10 itens numerados em grid 2 colunas.
-3. **Contexto e objetivos**: duas colunas de cards (desafio e objetivos).
-4. **Diagnóstico inicial**: duas colunas de cards (avaliação e oportunidades).
-5. **1º mês**: tabs 1º/2º/3º mês, 3 cards de pilares, lista de ações, entregável.
-6. **2º mês**: mesma estrutura do slide 5 com conteúdo do 2º mês.
-7. **3º mês**: mesma estrutura com conteúdo do 3º mês.
-8. **Mensagem por curso**: 3 cards com Direito, Administração Tech, Engenharia de Software.
-9. **Canais e ferramentas**: 6 cards de canais + destaque para eventos presenciais.
-10. **Jornada do candidato**: 5 cards numerados (01 a 05) com etapas e SLAs.
-11. **Clima organizacional**: 6 cards com título, descrição e impacto.
-12. **Indicadores e KPIs**: tabela com 7 linhas (indicador, meta, frequência).
-13. **Resultados esperados**: 7 itens com ícone de check em cards.
-14. **Diferenciais**: 6 cards numerados (01 a 06) + frase de destaque.
-15. **Conclusão**: fundo escuro + campus, título, frase e parágrafos.
-16. **Obrigado**: fundo escuro + campus, informações de contato e prazo.
-
-## Textos e logos editáveis
-
-- Todos os textos dos slides devem estar em arquivos TypeScript (não hardcoded em JSX sem variáveis), preferencialmente em um objeto `slidesContent` exportado de `src/components/presentation/content.ts`.
-- Campos editáveis do usuário (nome, email, telefone, data) devem ser inputs controlados com estado React, permitindo digitação direta na tela.
-- Logo e imagem do campus referenciados via import dos `.asset.json`, facilitando substituição futura.
-
-## SEO
-
-- Atualizar `src/routes/index.tsx` com `head()` contendo título, descrição, og:title, og:description, og:type, twitter:card e og:image (usar a URL absoluta da imagem do campus no CDN).
+- `src/routes/index.tsx` — rota da apresentação, com `head()` próprio (título, description, og/twitter, og:image apontando para a foto do campus no CDN).
+- `src/components/presentation/content.ts` — todo o texto dos 16 slides como estrutura de dados.
+- `src/components/presentation/store.ts` — estado editável + persistência em `localStorage`.
+- `src/components/presentation/EditableText.tsx`, `EditableImage.tsx` — primitivas de edição.
+- `src/components/presentation/SlideLayout.tsx`, `ScaledSlide.tsx` — escala e moldura.
+- `src/components/presentation/slides/` — um componente por slide, com `CoverSlide` compartilhado entre 01, 15 e 16.
+- `src/components/presentation/Deck.tsx` — navegação, grade, tela cheia, impressão.
 
 ## Verificação
 
-- Build deve passar sem erros.
-- Comparar screenshots dos 16 slides originais com o preview local para validar alinhamento visual, tipografia, cores e espaçamento.
-- Testar navegação por teclado e botões.
-- Confirmar que todos os textos são editáveis no código e campos do usuário são editáveis na interface.
+- Build limpo.
+- Comparar os 16 slides renderizados com os screenshots de referência (paleta, posição, tipografia, espaçamento).
+- Confirmar que 15 e 16 são visualmente irmãos do slide 1.
+- Confirmar edição inline em cada tipo de texto e substituição/redimensão/reposição de logo e imagem.
+- Testar teclado, grade, tela cheia, `?print`, refresh mantendo o slide, e layout em largura mobile.
