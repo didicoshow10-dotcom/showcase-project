@@ -7,21 +7,24 @@ const H = 1080;
 type ExportDocument = Document;
 
 function triggerDownload(blob: Blob, filename: string) {
+  if (!blob || blob.size === 0) throw new Error("O arquivo exportado ficou vazio.");
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
   link.download = filename;
   link.rel = "noopener";
-  link.style.display = "none";
+  link.setAttribute("aria-hidden", "true");
+  link.style.position = "fixed";
+  link.style.left = "-10000px";
+  link.style.top = "-10000px";
   document.body.appendChild(link);
   link.click();
-  link.remove();
-  window.setTimeout(() => URL.revokeObjectURL(url), 3000);
+  window.setTimeout(() => {
+    link.remove();
+    URL.revokeObjectURL(url);
+  }, 10000);
 }
 
-/* html2canvas can fail while parsing CSS that contains oklch(), even when the
- * browser itself renders it correctly. Convert the CSS in the clone before
- * html2canvas reads its stylesheets. The live presentation is never changed. */
 function normalizeCssColors(css: string): string {
   const fallbacks: Record<string, string> = {
     "oklch(0.19 0.085 308)": "#21102f",
@@ -54,42 +57,49 @@ function prepareClone(clonedDoc: Document) {
     style.textContent = normalizeCssColors(style.textContent ?? "");
   });
   const safeStyle = clonedDoc.createElement("style");
-  safeStyle.textContent = `
-    *, *::before, *::after { animation: none !important; transition: none !important; }
-  `;
+  safeStyle.textContent = "*, *::before, *::after { animation: none !important; transition: none !important; }";
   clonedDoc.head.appendChild(safeStyle);
 }
 
-async function capture(slide: HTMLElement) {
-  const safe = slide.cloneNode(true) as HTMLElement;
-  safe.style.position = "fixed";
-  safe.style.left = "0";
-  safe.style.top = "0";
-  safe.style.width = `${W}px`;
-  safe.style.height = `${H}px`;
-  safe.style.zIndex = "-1";
-  safe.style.pointerEvents = "none";
-  document.body.appendChild(safe);
-  try {
-    return await html2canvas(safe, {
-      scale: 1,
-      backgroundColor: "#ffffff",
-      useCORS: true,
-      logging: false,
-      windowWidth: W,
-      windowHeight: H,
-      onclone: prepareClone,
+async function waitForAssets() {
+  if ("fonts" in document) await document.fonts.ready;
+  await Promise.all(Array.from(document.images).map((image) => {
+    if (image.complete) return Promise.resolve();
+    return new Promise<void>((resolve) => {
+      image.addEventListener("load", () => resolve(), { once: true });
+      image.addEventListener("error", () => resolve(), { once: true });
     });
-  } finally {
-    safe.remove();
-  }
+  }));
 }
 
-export async function exportDeckPdf(doc: ExportDocument = document) {
+async function capture(slide: HTMLElement) {
+  await waitForAssets();
+  return html2canvas(slide, {
+    width: W,
+    height: H,
+    scale: 1,
+    backgroundColor: "#ffffff",
+    useCORS: true,
+    allowTaint: false,
+    logging: false,
+    scrollX: 0,
+    scrollY: 0,
+    windowWidth: W,
+    windowHeight: H,
+    onclone: prepareClone,
+  });
+}
+
+async function getSlides(doc: ExportDocument) {
   const deck = doc.querySelector<HTMLElement>(".print-deck");
   if (!deck) throw new Error("A apresentação para exportação ainda não foi renderizada.");
   const slides = Array.from(deck.querySelectorAll<HTMLElement>(".print-slide"));
   if (!slides.length) throw new Error("Nenhum slide encontrado para exportação.");
+  return slides;
+}
+
+export async function exportDeckPdf(doc: ExportDocument = document) {
+  const slides = await getSlides(doc);
   const pdf = new jsPDF({ orientation: "landscape", unit: "px", format: [W, H], compress: true });
   for (let i = 0; i < slides.length; i += 1) {
     const canvas = await capture(slides[i]);
@@ -100,10 +110,7 @@ export async function exportDeckPdf(doc: ExportDocument = document) {
 }
 
 export async function exportDeckPptx(doc: ExportDocument = document) {
-  const deck = doc.querySelector<HTMLElement>(".print-deck");
-  if (!deck) throw new Error("A apresentação para exportação ainda não foi renderizada.");
-  const slides = Array.from(deck.querySelectorAll<HTMLElement>(".print-slide"));
-  if (!slides.length) throw new Error("Nenhum slide encontrado para exportação.");
+  const slides = await getSlides(doc);
   const pptx = new pptxgen();
   pptx.layout = "LAYOUT_WIDE";
   pptx.author = "Antonio Fontes";
