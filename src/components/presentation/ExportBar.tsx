@@ -42,8 +42,12 @@ async function openExportWindow(format: "pdf" | "pptx") {
 export function ExportBar() {
   const [loading, setLoading] = useState<"pdf" | "pptx" | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [printMode, setPrintMode] = useState(true);
 
-  if (new URLSearchParams(window.location.search).has("print")) return null;
+  useEffect(() => {
+    setPrintMode(new URLSearchParams(window.location.search).has("print"));
+  }, []);
+
 
   const run = async (format: "pdf" | "pptx") => {
     setError(null);
