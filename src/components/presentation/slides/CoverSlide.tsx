@@ -6,7 +6,7 @@ interface CoverSlideProps { index: number; scale: number; content: CoverContent;
 
 export function CoverSlide({ index, scale, content, isPrimary = false }: CoverSlideProps) {
   const isOpening = index === 0;
-  const isClosing = index === 15;
+  const isClosing = index === 16;
   const lines = isOpening
     ? ["Instituto de Ensino Superior | iCEV", "Antonio Fontes", "comfontes@gmail.com", "(86) 99997 4164"]
     : isClosing
@@ -18,9 +18,9 @@ export function CoverSlide({ index, scale, content, isPrimary = false }: CoverSl
       {isClosing ? (
         <>
           <EditableText id={`cover-title-${index}`} as="h1" value="OBRIGADO!" className="slide-title-lg block max-w-[1100px] text-primary-foreground" />
-          <EditableText id={`cover-closing-title-${index}`} value="Proposta de atuação" className="slide-subtitle mt-10 block max-w-[1000px] text-primary-foreground" singleLine />
-          <EditableText id={`cover-closing-subtitle-${index}`} value="Coordenador de Marketing iCEV" className="slide-body-lg mt-3 block max-w-[1000px] text-lilac-deep" singleLine />
-          <div className="mt-10 space-y-2">
+          <EditableText id={`cover-closing-title-${index}`} value="Proposta de atuação" className="slide-subtitle mt-8 block max-w-[1000px] text-primary-foreground" singleLine />
+          <EditableText id={`cover-closing-subtitle-${index}`} value="Coordenador de Marketing iCEV" className="slide-body-lg mt-2 block max-w-[1000px] text-lilac-deep" singleLine />
+          <div className="mt-8 space-y-2">
             {lines.map((line, lineIndex) => (
               <EditableText key={lineIndex} id={`cover-line-${index}-${lineIndex}`} as="p" value={line} className="slide-body block max-w-[1020px] text-primary-foreground/90" singleLine />
             ))}
