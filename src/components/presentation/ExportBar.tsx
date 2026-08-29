@@ -2,17 +2,35 @@ import { useEffect, useState } from "react";
 import { FileDown, Presentation, Loader2 } from "lucide-react";
 import { exportDeckPdf, exportDeckPptx } from "./exporters";
 
-async function prepareExportDocument(): Promise<Document> {
+async function createExportFrame(): Promise<{ iframe: HTMLIFrameElement; doc: Document }> {
+  const iframe = document.createElement("iframe");
+  iframe.setAttribute("aria-hidden", "true");
+  iframe.style.position = "fixed";
+  iframe.style.width = "1920px";
+  iframe.style.height = "1080px";
+  iframe.style.left = "-10000px";
+  iframe.style.top = "0";
+  iframe.style.border = "0";
+  iframe.style.visibility = "hidden";
   const url = new URL(window.location.href);
   url.searchParams.set("print", "1");
-  const response = await fetch(url.toString());
-  if (!response.ok) throw new Error("Não foi possível preparar a apresentação para download.");
-  const html = await response.text();
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(html, "text/html");
-  const scripts = Array.from(doc.querySelectorAll("script"));
-  if (!scripts.length) throw new Error("Não foi possível preparar a apresentação para exportação.");
-  throw new Error("A exportação precisa ser executada na página de apresentação para gerar os arquivos.");
+  document.body.appendChild(iframe);
+
+  await new Promise<void>((resolve, reject) => {
+    const timeout = window.setTimeout(() => reject(new Error("A apresentação demorou demais para preparar o arquivo.")), 30000);
+    iframe.onload = () => { window.clearTimeout(timeout); resolve(); };
+    iframe.onerror = () => { window.clearTimeout(timeout); reject(new Error("Não foi possível preparar a apresentação para exportação.")); };
+    iframe.src = url.toString();
+  });
+
+  const doc = iframe.contentDocument;
+  if (!doc) throw new Error("Não foi possível acessar a apresentação para exportação.");
+  await new Promise((resolve) => window.setTimeout(resolve, 1200));
+  if (doc.querySelectorAll(".print-slide").length < 16) throw new Error("A apresentação não carregou todos os slides para exportação.");
+  if (doc.fonts?.ready) await doc.fonts.ready;
+  const images = Array.from(doc.images);
+  await Promise.all(images.map((image) => image.complete ? Promise.resolve() : new Promise<void>((resolve) => { image.onload = () => resolve(); image.onerror = () => resolve(); })));
+  return { iframe, doc };
 }
 
 export function ExportBar() {
@@ -25,28 +43,18 @@ export function ExportBar() {
   const run = async (format: "pdf" | "pptx") => {
     setError(null);
     setLoading(format);
+    let iframe: HTMLIFrameElement | null = null;
     try {
-      const url = new URL(window.location.href);
-      url.searchParams.set("print", "1");
-      const popup = window.open(url.toString(), "_blank", "noopener,noreferrer");
-      if (!popup) throw new Error("O navegador bloqueou a janela de exportação. Permita pop-ups para este site.");
-      await new Promise<void>((resolve, reject) => {
-        const started = Date.now();
-        const timer = window.setInterval(async () => {
-          try {
-            if (popup.closed) { window.clearInterval(timer); reject(new Error("A janela de exportação foi fechada antes do download.")); return; }
-            const ready = popup.document.querySelectorAll(".print-slide").length >= 16;
-            if (!ready) { if (Date.now() - started > 30000) { window.clearInterval(timer); reject(new Error("A apresentação demorou demais para preparar a exportação.")); } return; }
-            window.clearInterval(timer);
-            if (format === "pdf") await exportDeckPdf(popup.document);
-            else await exportDeckPptx(popup.document);
-            window.setTimeout(() => popup.close(), 1000);
-            resolve();
-          } catch (e) { window.clearInterval(timer); reject(e); }
-        }, 250);
-      });
-    } catch (e) { setError(e instanceof Error ? e.message : "Não foi possível exportar."); }
-    finally { setLoading(null); }
+      const exportFrame = await createExportFrame();
+      iframe = exportFrame.iframe;
+      if (format === "pdf") await exportDeckPdf(exportFrame.doc);
+      else await exportDeckPptx(exportFrame.doc);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Não foi possível exportar.");
+    } finally {
+      if (iframe) window.setTimeout(() => iframe?.remove(), 500);
+      setLoading(null);
+    }
   };
 
   if (printMode) return null;
