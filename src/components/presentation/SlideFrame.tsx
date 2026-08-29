@@ -9,7 +9,6 @@ import campusAsset from "@/assets/icev-campus.png.asset.json";
 export const LOGO_SRC = logoAsset.url;
 export const CAMPUS_SRC = campusAsset.url;
 
-/** Left/right content gutter shared by every slide. */
 export const GUTTER = 170;
 
 function pageLabel(index: number) {
@@ -21,10 +20,6 @@ interface FrameProps {
   scale: number;
   children: ReactNode;
 }
-
-/* ------------------------------------------------------------------ *
- * Cover frame — used by slides 01, 15 and 16
- * ------------------------------------------------------------------ */
 
 export function CoverFrame({ index, scale, children }: FrameProps) {
   return (
@@ -41,16 +36,18 @@ export function CoverFrame({ index, scale, children }: FrameProps) {
         cover
       />
 
-      {/* Purple veil so the copy stays legible over the photo. */}
+      {/* Explicit layer order: background -> veil/glow -> logo/content/footer.
+          This prevents the editable background from covering the overlay when
+          its stacking context is activated by mouse hover. */}
       <div
         className="pointer-events-none absolute inset-0"
-        style={{ background: "var(--gradient-cover-veil)" }}
+        style={{ zIndex: 1, background: "var(--gradient-cover-veil)" }}
       />
 
-      {/* Crimson glow echoing the reference deck. */}
       <div
         className="pointer-events-none absolute rounded-full"
         style={{
+          zIndex: 1,
           right: -150,
           top: -230,
           width: 720,
@@ -60,27 +57,29 @@ export function CoverFrame({ index, scale, children }: FrameProps) {
         }}
       />
 
-      <EditableImage
-        id={`cover-logo-${index}`}
-        src={LOGO_SRC}
-        alt="Logotipo do iCEV"
-        x={190}
-        y={96}
-        width={118}
-        height={118}
-        scale={scale}
-        className="rounded-[26px]"
-      />
-
       <div
         className="absolute"
-        style={{ left: 190, top: 268, width: 1180 }}
+        style={{ left: 190, top: 96, width: 1180, zIndex: 2 }}
       >
-        {children}
+        <EditableImage
+          id={`cover-logo-${index}`}
+          src={LOGO_SRC}
+          alt="Logotipo do iCEV"
+          x={0}
+          y={0}
+          width={118}
+          height={118}
+          scale={scale}
+          className="rounded-[26px]"
+        />
+
+        <div className="absolute" style={{ left: 0, top: 172, width: 1180 }}>
+          {children}
+        </div>
       </div>
 
       <div
-        className="slide-footer absolute flex items-center justify-between text-primary-foreground/60"
+        className="slide-footer absolute z-[2] flex items-center justify-between text-primary-foreground/60"
         style={{ left: GUTTER + 20, right: GUTTER + 20, bottom: 54 }}
       >
         <EditableText
@@ -93,10 +92,6 @@ export function CoverFrame({ index, scale, children }: FrameProps) {
     </div>
   );
 }
-
-/* ------------------------------------------------------------------ *
- * Content frame — used by slides 02 through 14
- * ------------------------------------------------------------------ */
 
 interface ContentFrameProps extends FrameProps {
   kicker: string;
@@ -112,13 +107,11 @@ export function ContentFrame({
 }: ContentFrameProps) {
   return (
     <div className="slide-content bg-paper">
-      {/* Vertical brand rail. */}
       <div
         className="absolute left-0 top-0 h-full"
         style={{ width: 12, background: "var(--gradient-rail)" }}
       />
 
-      {/* Soft decorative circles. */}
       <div
         className="pointer-events-none absolute rounded-full bg-lilac"
         style={{ right: -320, top: -400, width: 1180, height: 1180, opacity: 0.55 }}
