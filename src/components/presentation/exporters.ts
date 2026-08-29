@@ -13,7 +13,6 @@ function triggerDownload(blob: Blob, filename: string) {
   link.href = url;
   link.download = filename;
   link.rel = "noopener";
-  link.setAttribute("aria-hidden", "true");
   link.style.position = "fixed";
   link.style.left = "-10000px";
   link.style.top = "-10000px";
@@ -56,8 +55,18 @@ function prepareClone(clonedDoc: Document) {
   clonedDoc.querySelectorAll("style").forEach((style) => {
     style.textContent = normalizeCssColors(style.textContent ?? "");
   });
+
+  // html2canvas also reads CSSStyleSheet.cssRules. Remove cloned external
+  // stylesheets so an unsupported color function cannot reach its parser.
+  clonedDoc.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]').forEach((link) => link.remove());
+
   const safeStyle = clonedDoc.createElement("style");
-  safeStyle.textContent = "*, *::before, *::after { animation: none !important; transition: none !important; }";
+  safeStyle.textContent = `
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  `;
   clonedDoc.head.appendChild(safeStyle);
 }
 
