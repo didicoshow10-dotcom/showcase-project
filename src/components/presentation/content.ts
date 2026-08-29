@@ -8,6 +8,7 @@
 
 export const DECK_META = {
   title: "Proposta de Atuação — Coordenador(a) de Marketing",
+  shortTitle: "Proposta de Atuação · iCEV",
   subtitle: "iCEV | Use ← → para navegar, G para a grade",
   institutionFooter: "iCEV — Instituto de Ensino Superior | Teresina/PI",
   deckFooter: "iCEV | Proposta de Atuação — Coordenador(a) de Marketing",

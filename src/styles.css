@@ -271,7 +271,17 @@
   box-shadow: 0 0 0 3px oklch(0.62 0.175 8 / 0.6);
 }
 
-/* Print: one slide per page */
+/* Print route: every slide stacked, one per page */
+.print-deck {
+  width: 1920px;
+}
+
+.print-slide {
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+}
+
 @media print {
   @page {
     size: 1920px 1080px landscape;
