@@ -4,7 +4,6 @@ import pptxgen from "pptxgenjs";
 
 const W = 1920;
 const H = 1080;
-
 type ExportDocument = Document;
 
 export async function exportDeckPdf(doc: ExportDocument = document) {
@@ -31,7 +30,7 @@ export async function exportDeckPptx(doc: ExportDocument = document) {
   const pptx = new pptxgen();
   pptx.layout = "LAYOUT_WIDE";
   pptx.author = "Antonio Fontes";
-  pptx.subject = "Proposta de Atuação — Coordenador(a) de Marketing";
+  pptx.subject = "Proposta de Atuação — Coordenador de Marketing";
   pptx.title = "Proposta de Atuação — iCEV";
   pptx.company = "Antonio Fontes";
   for (const element of slides) {
