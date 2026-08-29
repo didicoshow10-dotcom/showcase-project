@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Expand, Grid3x3, Pencil, RotateCcw, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Expand, Grid3x3, Pencil, RotateCcw, X, Minus, Plus } from "lucide-react";
 import { ScaledSlide, SLIDE_HEIGHT, SLIDE_WIDTH } from "./ScaledSlide";
 import { renderSlide } from "./slides";
 import { useDeckStore } from "./store";
@@ -21,6 +21,40 @@ function PrintDeck() {
           {renderSlide(index, 1)}
         </div>
       ))}
+    </div>
+  );
+}
+
+function FontSizeControl() {
+  const { editMode, selectedTextId, getFontSize, setFontSize } = useDeckStore();
+  const [value, setValue] = useState(20);
+
+  useEffect(() => {
+    if (!selectedTextId || !editMode) return;
+    const stored = getFontSize(selectedTextId);
+    if (stored) { setValue(stored); return; }
+    const node = document.querySelector(`[data-text-id="${CSS.escape(selectedTextId)}"]`) as HTMLElement | null;
+    const computed = node ? Number.parseFloat(window.getComputedStyle(node).fontSize) : 20;
+    if (Number.isFinite(computed)) setValue(Math.round(computed));
+  }, [selectedTextId, editMode, getFontSize]);
+
+  if (!editMode) return null;
+
+  const apply = (next: number) => {
+    if (!selectedTextId) return;
+    const safe = Math.max(10, Math.min(72, Math.round(next)));
+    setValue(safe);
+    setFontSize(selectedTextId, safe);
+  };
+
+  return (
+    <div className="fixed right-4 top-[76px] z-40 flex items-center gap-2 rounded-xl border border-white/15 bg-ink/95 px-3 py-2 shadow-xl backdrop-blur sm:right-7">
+      <span className="text-xs font-semibold text-white/65">Fonte</span>
+      <button type="button" onClick={() => apply(value - 1)} disabled={!selectedTextId || value <= 10} className="rounded-lg bg-white/10 p-1.5 text-white transition hover:bg-white/20 disabled:opacity-30" aria-label="Diminuir fonte"><Minus className="size-4" /></button>
+      <input aria-label="Tamanho da fonte em pixels" type="number" min={10} max={72} value={value} disabled={!selectedTextId} onChange={(event) => setValue(Number(event.target.value))} onBlur={() => apply(value)} onKeyDown={(event) => { if (event.key === "Enter") { event.preventDefault(); apply(value); } }} className="w-16 rounded-lg border border-white/15 bg-white/10 px-2 py-1.5 text-center text-sm font-semibold text-white outline-none focus:border-crimson" />
+      <span className="text-xs text-white/45">px</span>
+      <button type="button" onClick={() => apply(value + 1)} disabled={!selectedTextId || value >= 72} className="rounded-lg bg-white/10 p-1.5 text-white transition hover:bg-white/20 disabled:opacity-30" aria-label="Aumentar fonte"><Plus className="size-4" /></button>
+      {!selectedTextId ? <span className="ml-1 hidden text-[11px] text-white/45 sm:inline">Selecione um texto</span> : null}
     </div>
   );
 }
@@ -89,6 +123,7 @@ export function Deck() {
           <button type="button" onClick={enterFullscreen} className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs font-semibold text-white/85 transition hover:bg-white/20" aria-label="Apresentar em tela cheia"><Expand className="size-4" aria-hidden="true" /><span className="hidden sm:inline">Apresentar</span></button>
         </div>
       </header>
+      <FontSizeControl />
       <main className="relative min-h-0 flex-1" onTouchStart={(event) => { touchStartX.current = event.touches[0]?.clientX ?? null; }} onTouchEnd={(event) => { const start = touchStartX.current; const end = event.changedTouches[0]?.clientX ?? null; touchStartX.current = null; if (start === null || end === null) return; const delta = end - start; if (Math.abs(delta) < 60) return; if (delta < 0) goNext(); else goPrev(); }}>
         <ScaledSlide className="size-full">{(scale) => <div key={hydrated ? "ready" : "ssr"} className="size-full">{renderSlide(index, scale)}</div>}</ScaledSlide>
         <div className="pointer-events-none absolute inset-x-0 bottom-4 flex justify-center"><div className="pointer-events-auto flex items-center gap-3 rounded-full bg-black/55 px-3 py-2 backdrop-blur"><button type="button" onClick={goPrev} disabled={index === 0} className="rounded-full p-2 text-white/85 transition hover:bg-white/15 disabled:opacity-30" aria-label="Slide anterior"><ChevronLeft className="size-5" aria-hidden="true" /></button><span className="min-w-[62px] text-center text-xs font-semibold tabular-nums text-white/85">{index + 1} / {TOTAL_SLIDES}</span><button type="button" onClick={goNext} disabled={index === TOTAL_SLIDES - 1} className="rounded-full p-2 text-white/85 transition hover:bg-white/15 disabled:opacity-30" aria-label="Próximo slide"><ChevronRight className="size-5" aria-hidden="true" /></button></div></div>
