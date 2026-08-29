@@ -29,7 +29,7 @@ function PrintDeck() {
       {SLIDE_TITLES.map((title, index) => (
         <div
           key={title}
-          className="print-page"
+          className="print-slide"
           style={{ width: SLIDE_WIDTH, height: SLIDE_HEIGHT }}
         >
           {renderSlide(index, 1)}
