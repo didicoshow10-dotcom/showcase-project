@@ -6,6 +6,18 @@ const W = 1920;
 const H = 1080;
 type ExportDocument = Document;
 
+function triggerDownload(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  link.style.display = "none";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1500);
+}
+
 export async function exportDeckPdf(doc: ExportDocument = document) {
   const deck = doc.querySelector<HTMLElement>(".print-deck");
   if (!deck) throw new Error("A apresentação para exportação ainda não foi renderizada.");
@@ -19,7 +31,7 @@ export async function exportDeckPdf(doc: ExportDocument = document) {
     if (i > 0) pdf.addPage([W, H], "landscape");
     pdf.addImage(canvas.toDataURL("image/jpeg", 0.94), "JPEG", 0, 0, W, H, undefined, "FAST");
   }
-  pdf.save("proposta-icev-antonio-fontes-agosto-2026.pdf");
+  triggerDownload(pdf.output("blob"), "proposta-icev-antonio-fontes-agosto-2026.pdf");
 }
 
 export async function exportDeckPptx(doc: ExportDocument = document) {
@@ -39,5 +51,6 @@ export async function exportDeckPptx(doc: ExportDocument = document) {
     slide.background = { color: "FFFFFF" };
     slide.addImage({ data: canvas.toDataURL("image/png"), x: 0, y: 0, w: 13.333, h: 7.5 });
   }
-  await pptx.writeFile({ fileName: "proposta-icev-antonio-fontes-agosto-2026.pptx" });
+  const output = await pptx.write({ outputType: "blob" }) as Blob;
+  triggerDownload(output, "proposta-icev-antonio-fontes-agosto-2026.pptx");
 }
