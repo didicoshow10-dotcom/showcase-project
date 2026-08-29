@@ -64,7 +64,7 @@ export function MonthSlide({ index, scale, content }: MonthSlideProps) {
             {column.map((item, itemIndex) => (
               <li
                 key={itemIndex}
-                className="flex items-start gap-5 border-b border-lilac-deep/60 py-5"
+                className="flex items-start gap-5 border-b border-lilac-deep/60 py-4"
               >
                 <span
                   className="mt-3 size-3 shrink-0 rounded-full bg-plum-soft"
@@ -81,7 +81,7 @@ export function MonthSlide({ index, scale, content }: MonthSlideProps) {
         ))}
       </div>
 
-      <div className="mt-8 flex items-center gap-9 rounded-[20px] bg-lilac/60 px-10 py-7">
+      <div className="mt-7 flex items-center gap-9 rounded-[20px] bg-lilac/60 px-10 py-6">
         <span className="slide-chrome rounded-full bg-crimson px-7 py-3 font-bold uppercase tracking-[0.16em] text-primary-foreground">
           <EditableText
             id={`month-deliverable-label-${index}`}

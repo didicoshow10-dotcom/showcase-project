@@ -97,7 +97,8 @@ export function renderSlide(index: number, scale: number) {
           title={SLIDE_11.title}
           cards={SLIDE_11.cards}
           columns={3}
-          cardMinHeight={296}
+          cardMinHeight={250}
+          compact
         />
       );
     case 11:
