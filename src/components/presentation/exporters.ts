@@ -14,7 +14,9 @@ export async function exportDeckPdf(doc: ExportDocument = document) {
   if (!slides.length) throw new Error("Nenhum slide encontrado para exportação.");
   const pdf = new jsPDF({ orientation: "landscape", unit: "px", format: [W, H], compress: true });
   for (let i = 0; i < slides.length; i += 1) {
-    const canvas = await html2canvas(slides[i], { scale: 1, backgroundColor: "#ffffff", useCORS: true, logging: false, windowWidth: W });
+    const slide = slides[i];
+    if (!slide) continue;
+    const canvas = await html2canvas(slide, { scale: 1, backgroundColor: "#ffffff", useCORS: true, logging: false, windowWidth: W });
     if (i > 0) pdf.addPage([W, H], "landscape");
     pdf.addImage(canvas.toDataURL("image/jpeg", 0.94), "JPEG", 0, 0, W, H, undefined, "FAST");
   }
