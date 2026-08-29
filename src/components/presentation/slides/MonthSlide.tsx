@@ -35,11 +35,11 @@ export function MonthSlide({ index, scale, content }: MonthSlideProps) {
         })}
       </div>
 
-      <div className="mt-11 grid grid-cols-3 gap-11">
+      <div className="mt-8 grid grid-cols-3 gap-10">
         {content.pillars.map((pillar, pillarIndex) => (
           <div
             key={pillarIndex}
-            className="flex items-center rounded-[22px] px-12 py-9"
+            className="flex items-center rounded-[22px] px-12 py-8"
             style={{
               background:
                 pillarIndex % 2 === 0
@@ -58,13 +58,13 @@ export function MonthSlide({ index, scale, content }: MonthSlideProps) {
         ))}
       </div>
 
-      <div className="mt-11 grid grid-cols-2 gap-x-20">
+      <div className="mt-8 grid grid-cols-2 gap-x-20">
         {[content.leftItems, content.rightItems].map((column, columnIndex) => (
           <ul key={columnIndex}>
             {column.map((item, itemIndex) => (
               <li
                 key={itemIndex}
-                className="flex items-start gap-5 border-b border-lilac-deep/60 py-6"
+                className="flex items-start gap-5 border-b border-lilac-deep/60 py-5"
               >
                 <span
                   className="mt-3 size-3 shrink-0 rounded-full bg-plum-soft"
@@ -81,7 +81,7 @@ export function MonthSlide({ index, scale, content }: MonthSlideProps) {
         ))}
       </div>
 
-      <div className="mt-11 flex items-center gap-9 rounded-[20px] bg-lilac/60 px-10 py-7">
+      <div className="mt-8 flex items-center gap-9 rounded-[20px] bg-lilac/60 px-10 py-7">
         <span className="slide-chrome rounded-full bg-crimson px-7 py-3 font-bold uppercase tracking-[0.16em] text-primary-foreground">
           <EditableText
             id={`month-deliverable-label-${index}`}

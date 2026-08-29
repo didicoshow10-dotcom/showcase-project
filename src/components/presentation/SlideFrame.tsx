@@ -163,7 +163,7 @@ export function ContentFrame({
 
       <div
         className="absolute"
-        style={{ left: GUTTER, top: 316, width: SLIDE_WIDTH - GUTTER * 2 }}
+        style={{ left: GUTTER, top: 344, width: SLIDE_WIDTH - GUTTER * 2 }}
       >
         {children}
       </div>
