@@ -21,7 +21,7 @@ export function KpiSlide({ index, scale }: SlideProps) {
         style={{ boxShadow: "var(--shadow-card-lg)" }}
       >
         <div
-          className="grid px-12 py-7"
+          className="grid px-12 py-5"
           style={{
             gridTemplateColumns: "1fr 0.65fr 0.45fr",
             background: "var(--gradient-plum)",
@@ -81,7 +81,7 @@ export function KpiSlide({ index, scale }: SlideProps) {
         id={`kpi-note-${index}`}
         as="p"
         value={SLIDE_12.note}
-        className="slide-body-lg mt-9 block text-plum-soft"
+        className="slide-body mt-6 block text-plum-soft"
       />
     </ContentFrame>
   );
