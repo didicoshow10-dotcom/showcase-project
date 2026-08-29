@@ -421,3 +421,28 @@ export const SLIDE_16: CoverContent = {
     "[Seu nome completo] | [seu@email.com] | [(00) 00000-0000]",
   ],
 };
+
+/* ---------------------------------------------------------------- *
+ * Índice do deck
+ * ---------------------------------------------------------------- */
+
+export const SLIDE_TITLES = [
+  "Capa",
+  "Sumário",
+  "Contexto",
+  "Diagnóstico Inicial",
+  "Mês 1 — Diagnóstico e Planejamento",
+  "Mês 2 — Implementação",
+  "Mês 3 — Otimização e Resultados",
+  "Mensagem por Curso",
+  "Canais e Ferramentas",
+  "Jornada do Candidato",
+  "Clima Organizacional e Engajamento",
+  "Indicadores e KPIs",
+  "Resultados Esperados",
+  "Diferenciais da Proposta",
+  "Conclusão",
+  "Encerramento",
+] as const;
+
+export const TOTAL_SLIDES = SLIDE_TITLES.length;
