@@ -1,11 +1,4 @@
-/**
- * Conteúdo padrão da apresentação.
- *
- * Todos os textos renderizados pelos slides usam ids estáveis nos componentes
- * EditableText. Assim, o conteúdo pode ser alterado no modo Editar sem perder
- * a estrutura visual. Os defaults abaixo são restaurados quando o usuário
- * escolhe "Restaurar".
- */
+/** Conteúdo padrão da apresentação — Proposta de Atuação iCEV. */
 
 export const DECK_META = {
   title: "Proposta de Atuação — Coordenador(a) de Marketing",
@@ -15,434 +8,280 @@ export const DECK_META = {
   deckFooter: "iCEV | Proposta de Atuação — Coordenador(a) de Marketing",
 } as const;
 
-export interface CoverContent {
-  badge: string;
-  title: string;
-  subtitle: string;
-  lines: string[];
-}
-
-export interface SummaryItem {
-  number: string;
-  label: string;
-}
-
-export interface ColumnContent {
-  heading: string;
-  items: string[];
-}
-
-export interface MonthPillar {
-  label: string;
-}
-
-export interface MonthContent {
-  kicker: string;
-  title: string;
-  activeTab: number;
-  pillars: string[];
-  leftItems: string[];
-  rightItems: string[];
-  deliverableLabel: string;
-  deliverable: string;
-}
-
-export interface BadgeCard {
-  badge: string;
-  body: string;
-  meta: string;
-}
-
-export interface JourneyStep {
-  number: string;
-  title: string;
-  body: string;
-}
-
-export interface KpiRow {
-  indicator: string;
-  target: string;
-  frequency: string;
-}
-
-export interface NumberedCard {
-  number: string;
-  title: string;
-}
-
-/* ---------------------------------------------------------------- *
- * 01 — Capa
- * ---------------------------------------------------------------- */
+export interface CoverContent { badge: string; title: string; subtitle: string; lines: string[]; }
+export interface SummaryItem { number: string; label: string; }
+export interface ColumnContent { heading: string; items: string[]; }
+export interface MonthContent { kicker: string; title: string; activeTab: number; pillars: string[]; leftItems: string[]; rightItems: string[]; deliverableLabel: string; deliverable: string; }
+export interface BadgeCard { badge: string; body: string; meta: string; }
+export interface JourneyStep { number: string; title: string; body: string; }
+export interface KpiRow { indicator: string; target: string; frequency: string; }
+export interface NumberedCard { number: string; title: string; }
 
 export const SLIDE_01: CoverContent = {
-  badge: "Primeiros 3 meses",
+  badge: "PRIMEIROS 3 MESES",
   title: "Proposta de Atuação",
   subtitle: "Coordenador(a) de Marketing",
   lines: [
-    "iCEV — Instituto de Ensino Superior | Teresina/PI",
-    "Nome: [Seu nome completo]",
-    "[seu@email.com] | [(00) 00000-0000] | Data: [__/__/2026]",
+    "Antonio Fontes",
+    "comfontes@gmail.com",
+    "(86) 99997-4164",
   ],
 };
 
-/* ---------------------------------------------------------------- *
- * 02 — Sumário
- * ---------------------------------------------------------------- */
-
 export const SLIDE_02 = {
-  kicker: "Conteúdo",
-  title: "Sumário",
+  kicker: "VISÃO EXECUTIVA",
+  title: "O que esta proposta entrega",
   items: [
-    { number: "01", label: "Contexto e objetivos" },
-    { number: "02", label: "Diagnóstico inicial" },
-    { number: "03", label: "Plano dos 3 primeiros meses" },
-    { number: "04", label: "Estratégias de captação" },
-    { number: "05", label: "Jornada do candidato" },
-    { number: "06", label: "Clima e engajamento" },
-    { number: "07", label: "Indicadores e KPIs" },
-    { number: "08", label: "Resultados esperados" },
-    { number: "09", label: "Diferenciais da proposta" },
-    { number: "10", label: "Conclusão e encerramento" },
+    { number: "01", label: "Diagnóstico: entender funil, canais, dados, equipe e gargalos" },
+    { number: "02", label: "Captação: gerar demanda qualificada e aumentar conversão" },
+    { number: "03", label: "Jornada: reduzir atritos do primeiro contato à matrícula" },
+    { number: "04", label: "Pessoas: fortalecer comunicação, colaboração e pertencimento" },
+    { number: "05", label: "Gestão: acompanhar KPIs e decidir com base em evidências" },
+    { number: "06", label: "90 dias: diagnosticar, implementar, medir e escalar" },
   ] satisfies SummaryItem[],
 };
 
-/* ---------------------------------------------------------------- *
- * 03 — Contexto e objetivos
- * ---------------------------------------------------------------- */
-
 export const SLIDE_03 = {
-  kicker: "Ponto de partida",
-  title: "Contexto e objetivos estratégicos",
+  kicker: "LEITURA DO DESAFIO",
+  title: "Dois objetivos, uma mesma lógica de gestão",
   left: {
-    heading: "1. Captação de novos alunos",
+    heading: "01 · Captação e matrícula",
     items: [
-      "Aumentar o número de interessados e matriculados",
-      "Estruturar estratégias específicas para cada curso",
-      "Integrar redes sociais, tráfego pago, conteúdo e relacionamento",
-      "Aproximar o iCEV do público jovem",
-      "Melhorar a jornada do primeiro contato até a matrícula",
+      "Construir um funil por curso: atração → lead → oportunidade → inscrição → matrícula.",
+      "Combinar mídia paga, conteúdo, redes sociais, eventos, landing pages e WhatsApp.",
+      "Segmentar mensagens por perfil, curso e estágio de decisão do candidato.",
+      "Transformar diferenciais acadêmicos em argumentos de escolha e prova social.",
+      "Integrar Marketing e Comercial para responder rápido e recuperar oportunidades.",
     ],
   } satisfies ColumnContent,
   right: {
-    heading: "2. Fortalecimento do clima organizacional",
+    heading: "02 · Clima e colaboração",
     items: [
-      "Melhorar a comunicação interna da equipe de Marketing",
-      "Estimular colaboração e troca de ideias",
-      "Aumentar engajamento e sentimento de pertencimento",
-      "Reconhecer resultados e boas iniciativas",
-      "Integrar Marketing, Comercial, Coordenações e demais áreas",
+      "Criar rituais de alinhamento, prioridades claras e responsabilidades visíveis.",
+      "Promover brainstorms, troca de aprendizados e construção conjunta de campanhas.",
+      "Reconhecer entregas, evolução e iniciativas que gerem impacto.",
+      "Conectar Marketing, Comercial, Coordenações e demais áreas à jornada do aluno.",
+      "Dar espaço para experimentação, testes e inovação com acompanhamento de resultado.",
     ],
   } satisfies ColumnContent,
 };
-
-/* ---------------------------------------------------------------- *
- * 04 — Diagnóstico inicial
- * ---------------------------------------------------------------- */
 
 export const SLIDE_04 = {
-  kicker: "Escuta e análise",
-  title: "Diagnóstico inicial",
+  kicker: "1º MÊS · DIAGNÓSTICO",
+  title: "Antes de acelerar, descobrir onde está o ganho",
   left: {
-    heading: "O que eu avaliaria ao chegar",
+    heading: "Dados que eu buscaria",
     items: [
-      "Histórico de leads, inscrições e matrículas",
-      "Conversão por etapa, curso e canal",
-      "Origem e qualidade dos leads",
-      "CPL, CAC e eficiência dos investimentos",
-      "Redes sociais, conteúdo, campanhas e concorrência",
-      "Processos entre Marketing, Comercial e Coordenações",
-      "Pontos de atrito e abandono na jornada do candidato",
+      "Leads, inscrições e matrículas por curso, período e origem.",
+      "Conversão entre etapas e tempo médio até o atendimento/matrícula.",
+      "CPL, CAC, investimento, retorno e qualidade dos leads por canal.",
+      "Desempenho de campanhas, landing pages, redes sociais e conteúdos.",
+      "Taxas de abandono, motivos de perda e oportunidades de recuperação.",
     ],
   } satisfies ColumnContent,
   right: {
-    heading: "Oportunidades a validar",
+    heading: "Perguntas que eu responderia",
     items: [
-      "Explorar melhor os diferenciais de cada curso",
-      "Fortalecer prova social com alunos e egressos",
-      "Ampliar a conexão com o público jovem",
-      "Integrar aquisição, atendimento e conversão",
-      "Criar metas compartilhadas entre Marketing e Comercial",
-      "Estabelecer rotina de decisões baseada em dados",
+      "Quais cursos têm maior potencial e quais gargalos precisam de atenção primeiro?",
+      "Que mensagem realmente diferencia o iCEV para cada público?",
+      "Onde o candidato abandona e por quê?",
+      "Marketing entrega lead qualificado? Comercial responde no tempo certo?",
+      "Quais ações já funcionam e merecem mais investimento?",
     ],
   } satisfies ColumnContent,
 };
-
-/* ---------------------------------------------------------------- *
- * 05 / 06 / 07 — Plano de 90 dias
- * ---------------------------------------------------------------- */
 
 export const MONTH_TABS = ["1º mês", "2º mês", "3º mês"] as const;
 
 export const SLIDE_05: MonthContent = {
-  kicker: "Plano dos 3 primeiros meses",
+  kicker: "PLANO DOS 3 PRIMEIROS MESES",
   title: "1º mês — Diagnóstico e planejamento",
   activeTab: 0,
-  pillars: ["Conhecer", "Alinhar", "Priorizar"],
+  pillars: ["Diagnosticar", "Alinhar", "Priorizar"],
   leftItems: [
-    "Levantar histórico de leads, inscrições, matrículas e conversões",
-    "Avaliar desempenho por curso, canal e campanha",
-    "Mapear jornada e principais pontos de abandono",
+    "Auditar funil, canais, campanhas, conteúdo, CRM e jornada do candidato.",
+    "Entrevistar Marketing, Comercial, Coordenações e lideranças.",
+    "Mapear gargalos, quick wins e oportunidades por curso.",
   ],
   rightItems: [
-    "Ouvir Marketing, Comercial, Coordenações e lideranças",
-    "Definir baseline, KPIs e prioridades",
-    "Estruturar plano tático e rotina de comunicação interna",
+    "Definir baseline e painel inicial de KPIs.",
+    "Escolher 3–5 prioridades para o trimestre, evitando dispersão.",
+    "Criar calendário de campanhas e rotina de alinhamento entre áreas.",
   ],
-  deliverableLabel: "Entregável",
+  deliverableLabel: "ENTREGA DO MÊS",
   deliverable: "Diagnóstico 360º + prioridades + plano tático de 90 dias",
 };
 
 export const SLIDE_06: MonthContent = {
-  kicker: "Plano dos 3 primeiros meses",
+  kicker: "PLANO DOS 3 PRIMEIROS MESES",
   title: "2º mês — Implementação",
   activeTab: 1,
-  pillars: ["Executar", "Acompanhar", "Ajustar"],
+  pillars: ["Executar", "Testar", "Acompanhar"],
   leftItems: [
-    "Ativar campanhas prioritárias por curso e público",
-    "Colocar em prática redes sociais, conteúdo e mídia paga",
-    "Estruturar relacionamento, follow-up e recuperação de leads",
+    "Lançar campanhas prioritárias por curso, público e etapa do funil.",
+    "Criar conteúdos de prova social, carreira, rotina acadêmica e diferenciais.",
+    "Ativar landing pages, remarketing, WhatsApp e fluxos de nutrição.",
   ],
   rightItems: [
-    "Organizar responsáveis, prazos e prioridades da equipe",
-    "Criar rotina semanal de acompanhamento com Comercial",
-    "Testar mensagens, criativos, públicos e abordagens",
+    "Definir responsáveis, prazos e critérios de aprovação das entregas.",
+    "Implantar reunião semanal Marketing + Comercial baseada no funil.",
+    "Testar criativos, ofertas, públicos, CTAs e abordagens de atendimento.",
   ],
-  deliverableLabel: "Entregável",
-  deliverable: "Campanhas prioritárias ativas + rotina de acompanhamento",
+  deliverableLabel: "ENTREGA DO MÊS",
+  deliverable: "Campanhas no ar + rotina comercial + primeiros testes comparativos",
 };
 
 export const SLIDE_07: MonthContent = {
-  kicker: "Plano dos 3 primeiros meses",
+  kicker: "PLANO DOS 3 PRIMEIROS MESES",
   title: "3º mês — Otimização e resultados",
   activeTab: 2,
-  pillars: ["Analisar", "Otimizar", "Consolidar"],
+  pillars: ["Medir", "Otimizar", "Escalar"],
   leftItems: [
-    "Comparar resultados com o baseline definido no 1º mês",
-    "Avaliar desempenho por curso, canal e etapa do funil",
-    "Identificar o que deve ser mantido, ajustado ou interrompido",
+    "Comparar resultados com o baseline e identificar os maiores ganhos.",
+    "Analisar performance por curso, canal, campanha e etapa do funil.",
+    "Eliminar desperdícios e reforçar ações com melhor conversão e qualidade.",
   ],
   rightItems: [
-    "Realocar esforços para ações mais eficientes",
-    "Consolidar processos e aprendizados da equipe",
-    "Definir próximos passos e roadmap para o trimestre seguinte",
+    "Realocar verba e esforço para os canais vencedores.",
+    "Consolidar processos, aprendizados e responsabilidades do time.",
+    "Apresentar roadmap do próximo trimestre com metas e hipóteses de crescimento.",
   ],
-  deliverableLabel: "Entregável",
-  deliverable: "Relatório executivo + aprendizados + roadmap de continuidade",
+  deliverableLabel: "ENTREGA DO MÊS",
+  deliverable: "Relatório executivo + otimizações + roadmap de continuidade",
 };
-
-/* ---------------------------------------------------------------- *
- * 08 — Mensagem por curso
- * ---------------------------------------------------------------- */
 
 export const SLIDE_08 = {
-  kicker: "Estratégias de captação",
-  title: "Estratégia por curso",
+  kicker: "CAPTAÇÃO · ESTRATÉGIA POR CURSO",
+  title: "A mensagem muda conforme a decisão do candidato",
   cards: [
     {
-      badge: "Direito",
-      body: "Atrair quem busca formação jurídica sólida, prática e conectada à carreira.",
-      meta: "Mensagem: formação + experiência + carreira | Canais: Instagram, Google Ads, conteúdo e eventos",
+      badge: "DIREITO",
+      body: "Posicionar formação sólida, prática e conectada à carreira jurídica.",
+      meta: "Ações: professores + alunos/egressos + conteúdo de carreira + Google Ads por intenção.",
     },
     {
-      badge: "Administração Tech",
-      body: "Conectar negócios, tecnologia e inovação às oportunidades do mercado.",
-      meta: "Mensagem: gestão + tecnologia + empregabilidade | Canais: Instagram, TikTok, Meta Ads e Google Ads",
+      badge: "ADMINISTRAÇÃO TECH",
+      body: "Mostrar a combinação entre gestão, tecnologia, inovação e mercado.",
+      meta: "Ações: cases + projetos + creators + Reels/TikTok + campanhas de consideração.",
     },
     {
-      badge: "Engenharia de Software",
-      body: "Mostrar tecnologia na prática e as possibilidades de carreira em produtos digitais.",
-      meta: "Mensagem: prática + projetos + mercado | Canais: TikTok, Instagram, Google Ads e conteúdo",
+      badge: "ENG. DE SOFTWARE",
+      body: "Tornar tangível a prática: projetos, tecnologia, portfólio e oportunidades.",
+      meta: "Ações: demonstrações + alunos + desafios + TikTok/Instagram + Search.",
     },
   ] satisfies BadgeCard[],
 };
-
-/* ---------------------------------------------------------------- *
- * 09 — Canais e ferramentas
- * ---------------------------------------------------------------- */
 
 export const SLIDE_09 = {
-  kicker: "Estratégias de captação",
-  title: "Canais e ferramentas",
+  kicker: "CAPTAÇÃO · MIX DE CANAIS",
+  title: "Cada canal cumpre um papel no funil",
   cards: [
-    { badge: "Instagram", body: "Marca, prova social e relacionamento", meta: "Rotina acadêmica • alunos • professores • campanhas" },
-    { badge: "TikTok", body: "Conexão e alcance com o público jovem", meta: "Conteúdo nativo • tendências • carreira • bastidores" },
-    { badge: "Google Ads", body: "Captura de demanda e intenção", meta: "Campanhas por curso • palavras-chave • conversão" },
-    { badge: "Meta Ads", body: "Aquisição e remarketing", meta: "Segmentação • campanhas por curso • recuperação" },
-    { badge: "Conteúdo", body: "Autoridade, consideração e diferenciação", meta: "Carreira • cursos • professores • prova social" },
-    { badge: "WhatsApp / E-mail", body: "Relacionamento e conversão", meta: "Nutrição • atendimento • follow-up • recuperação" },
+    { badge: "Instagram", body: "Construir desejo e prova social", meta: "Reels • stories • alunos • professores • rotina" },
+    { badge: "TikTok", body: "Ganhar relevância com o público jovem", meta: "Conteúdo nativo • carreira • tendências • bastidores" },
+    { badge: "Google Ads", body: "Capturar intenção de matrícula", meta: "Busca por curso • região • palavras de alta intenção" },
+    { badge: "Meta Ads", body: "Gerar demanda e recuperar interesse", meta: "Prospecção • públicos • remarketing • testes" },
+    { badge: "Landing pages", body: "Transformar visita em lead", meta: "Uma página por oferta • CTA • prova • formulário curto" },
+    { badge: "WhatsApp + CRM", body: "Transformar lead em oportunidade", meta: "SLA • follow-up • nutrição • recuperação de abandono" },
   ] satisfies BadgeCard[],
-  note: "Eventos presenciais: experiência, relacionamento e conversão",
+  note: "Eventos e experiências no campus entram como aceleradores de confiança e conversão.",
 };
 
-/* ---------------------------------------------------------------- *
- * 10 — Jornada do candidato
- * ---------------------------------------------------------------- */
-
 export const SLIDE_10 = {
-  kicker: "Experiência",
-  title: "Jornada do candidato",
-  sectionLabel: "Melhoria e SLA por etapa",
+  kicker: "JORNADA DO CANDIDATO",
+  title: "Menos atrito. Mais velocidade. Mais conversão.",
+  sectionLabel: "O que muda em cada etapa",
   steps: [
-    { number: "01", title: "1º contato", body: "Conteúdo, mídia e landing page com CTA claro" },
-    { number: "02", title: "Nutrição", body: "Conteúdo segmentado e resposta inicial em até 24h" },
-    { number: "03", title: "Interesse", body: "Atendimento consultivo e ágil em até 15 min" },
-    { number: "04", title: "Conversão", body: "Inscrição simples + follow-up + recuperação de abandono" },
-    { number: "05", title: "Matrícula", body: "Redução de atritos + confirmação + onboarding" },
+    { number: "01", title: "Descoberta", body: "Conteúdo e mídia levam o público certo para uma oferta clara." },
+    { number: "02", title: "Lead", body: "Landing page simples, CRM registrado e origem do lead identificada." },
+    { number: "03", title: "Atendimento", body: "Lead quente recebe contato rápido, consultivo e contextualizado." },
+    { number: "04", title: "Decisão", body: "Objeções são tratadas com prova social, diferenciais e follow-up." },
+    { number: "05", title: "Matrícula", body: "Processo simples, recuperação de abandono e comunicação de confirmação." },
   ] satisfies JourneyStep[],
 };
 
-/* ---------------------------------------------------------------- *
- * 11 — Clima organizacional e engajamento
- * ---------------------------------------------------------------- */
-
 export const SLIDE_11 = {
-  kicker: "Pessoas",
-  title: "Clima organizacional e engajamento",
+  kicker: "PESSOAS · CLIMA E ENGAJAMENTO",
+  title: "Um time alinhado entrega melhor e mais rápido",
   cards: [
-    {
-      badge: "Comunicação interna",
-      body: "Rituais claros, alinhamentos objetivos e canais definidos",
-      meta: "Resultado esperado: menos ruído e mais foco",
-    },
-    {
-      badge: "Colaboração e troca de ideias",
-      body: "Momentos de brainstorm, construção conjunta e compartilhamento de aprendizados",
-      meta: "Resultado esperado: mais colaboração e soluções melhores",
-    },
-    {
-      badge: "Engajamento e pertencimento",
-      body: "Conectar o time ao propósito, aos resultados e ao impacto do trabalho",
-      meta: "Resultado esperado: mais participação e senso de pertencimento",
-    },
-    {
-      badge: "Reconhecimento",
-      body: "Celebrar resultados, evolução e boas iniciativas",
-      meta: "Resultado esperado: motivação e valorização do time",
-    },
-    {
-      badge: "Criatividade e inovação",
-      body: "Criar espaço para ideias, testes e experimentação com responsabilidade",
-      meta: "Resultado esperado: campanhas mais relevantes e inovadoras",
-    },
-    {
-      badge: "Integração entre áreas",
-      body: "Rotina conjunta entre Marketing, Comercial, Coordenações e demais áreas",
-      meta: "Resultado esperado: decisões mais rápidas e jornada mais integrada",
-    },
+    { badge: "COMUNICAÇÃO", body: "Daily curta + reunião semanal de prioridades + canal único para demandas.", meta: "Menos ruído • mais previsibilidade" },
+    { badge: "COLABORAÇÃO", body: "Brainstorm quinzenal e retrospectiva das campanhas com troca de aprendizados.", meta: "Ideias melhores • aprendizado compartilhado" },
+    { badge: "PERTENCIMENTO", body: "Conectar cada entrega ao propósito e aos resultados da jornada do aluno.", meta: "Mais participação • mais senso de dono" },
+    { badge: "RECONHECIMENTO", body: "Celebrar resultados, evolução, colaboração e boas iniciativas.", meta: "Feedback frequente • valorização" },
+    { badge: "CRIATIVIDADE", body: "Reservar espaço para testes de formatos, mensagens e experiências novas.", meta: "Experimentar • medir • aprender" },
+    { badge: "INTEGRAÇÃO", body: "Marketing + Comercial + Coordenações em rituais orientados ao mesmo funil.", meta: "Decisão mais rápida • jornada integrada" },
   ] satisfies BadgeCard[],
 };
 
-/* ---------------------------------------------------------------- *
- * 12 — Indicadores e KPIs
- * ---------------------------------------------------------------- */
-
 export const SLIDE_12 = {
-  kicker: "Gestão por dados",
-  title: "Indicadores e KPIs",
-  headers: {
-    indicator: "Indicador",
-    target: "Referência em 3 meses",
-    frequency: "Frequência",
-  },
+  kicker: "GESTÃO POR DADOS",
+  title: "KPIs que mostram onde agir — não apenas o que aconteceu",
+  headers: { indicator: "Indicador", target: "Referência em 3 meses", frequency: "Frequência" },
   rows: [
-    { indicator: "Leads gerados", target: "Crescimento vs. baseline", frequency: "Semanal" },
+    { indicator: "Leads qualificados", target: "Crescer vs. baseline", frequency: "Semanal" },
     { indicator: "Inscrições", target: "+20%", frequency: "Semanal" },
-    { indicator: "Matrículas", target: "Crescimento vs. baseline", frequency: "Semanal" },
-    { indicator: "Taxa de conversão", target: "+10% sobre baseline", frequency: "Semanal" },
-    { indicator: "CPL (custo por lead)", target: "-15%", frequency: "Semanal" },
-    { indicator: "Taxa de abandono", target: "-10%", frequency: "Quinzenal" },
-    { indicator: "Tempo de resposta", target: "Até 15 min", frequency: "Diário" },
-    { indicator: "Engajamento nas redes", target: "+25%", frequency: "Semanal" },
-    { indicator: "Satisfação interna", target: "≥ 85%", frequency: "Mensal" },
+    { indicator: "Matrículas", target: "Crescer vs. baseline", frequency: "Semanal" },
+    { indicator: "Conversão do funil", target: "+10% vs. baseline", frequency: "Semanal" },
+    { indicator: "CPL", target: "-15%", frequency: "Semanal" },
+    { indicator: "Abandono", target: "-10%", frequency: "Quinzenal" },
+    { indicator: "Tempo de resposta", target: "≤ 15 min", frequency: "Diário" },
+    { indicator: "Engajamento social", target: "+25%", frequency: "Semanal" },
+    { indicator: "Clima / satisfação", target: "≥ 85%", frequency: "Mensal" },
   ] satisfies KpiRow[],
-  note: "Metas quantitativas são referências iniciais e devem ser calibradas após o diagnóstico e definição do baseline.",
+  note: "As metas são referências iniciais; o baseline real será definido no diagnóstico do 1º mês.",
 };
-
-/* ---------------------------------------------------------------- *
- * 13 — Resultados esperados
- * ---------------------------------------------------------------- */
 
 export const SLIDE_13 = {
-  kicker: "Entrega",
-  title: "Resultados esperados em 3 meses",
+  kicker: "RESULTADOS ESPERADOS",
+  title: "Ao final de 90 dias, o que deve estar diferente",
   items: [
-    "Funil de captação mensurável: leads → inscrições → matrículas",
-    "Estratégias e campanhas específicas por curso em execução",
-    "Maior volume e qualidade de interessados",
-    "Jornada do candidato mais rápida, clara e integrada",
-    "Marketing, Comercial e Coordenações trabalhando com objetivos comuns",
-    "Time mais alinhado, colaborativo, reconhecido e engajado",
-    "Rotina consolidada de indicadores, testes e melhoria contínua",
+    "Funil de captação visível, com origem, qualidade e conversão por etapa.",
+    "Campanhas e mensagens prioritárias estruturadas por curso e público.",
+    "Mais previsibilidade de geração e tratamento de leads qualificados.",
+    "Jornada com menos atritos, SLA de atendimento e recuperação de abandonos.",
+    "Marketing e Comercial acompanhando os mesmos números e prioridades.",
+    "Equipe com rituais de comunicação, colaboração, reconhecimento e aprendizado.",
   ],
 };
-
-/* ---------------------------------------------------------------- *
- * 14 — Diferenciais
- * ---------------------------------------------------------------- */
 
 export const SLIDE_14 = {
-  kicker: "Por que esta proposta",
-  title: "Diferenciais da proposta",
+  kicker: "DIFERENCIAIS DA PROPOSTA",
+  title: "Como eu pretendo atuar como Coordenador(a)",
   cards: [
-    { number: "01", title: "Gestão orientada por dados" },
-    { number: "02", title: "Estratégia específica por curso e público" },
-    { number: "03", title: "Jornada centrada no candidato" },
-    { number: "04", title: "Mídia, conteúdo e relacionamento integrados" },
-    { number: "05", title: "Liderança próxima e colaborativa" },
-    { number: "06", title: "Melhoria contínua: testar, medir e otimizar" },
+    { number: "01", title: "Estratégia antes da execução: entender o problema antes de comprar mídia." },
+    { number: "02", title: "Visão de funil: conectar aquisição, atendimento, inscrição e matrícula." },
+    { number: "03", title: "Decisão por dados: testar, comparar, aprender e realocar recursos." },
+    { number: "04", title: "Visão por curso: mensagem, público e proposta de valor não são iguais." },
+    { number: "05", title: "Liderança próxima: clareza, autonomia, feedback e reconhecimento." },
+    { number: "06", title: "Integração: Marketing trabalha junto de Comercial e áreas acadêmicas." },
   ] satisfies NumberedCard[],
-  note: "Uma atuação que une captação, experiência do candidato, integração entre áreas e desenvolvimento de pessoas.",
+  note: "Meu foco nos 90 dias: gerar tração sem perder qualidade, pessoas e experiência do candidato.",
 };
-
-/* ---------------------------------------------------------------- *
- * 15 — Conclusão
- * ---------------------------------------------------------------- */
 
 export const SLIDE_15: CoverContent = {
-  badge: "Fechamento",
-  title: "Conclusão",
-  subtitle: "Estratégia, pessoas e dados para transformar interesse em matrícula",
+  badge: "FECHAMENTO",
+  title: "Estratégia que vira execução",
+  subtitle: "Diagnosticar. Priorizar. Executar. Medir. Melhorar.",
   lines: [
-    "Nos primeiros 90 dias, a proposta começa pelo diagnóstico, prioriza ações de impacto e cria uma rotina de acompanhamento.",
-    "O foco é gerar resultados de captação sem perder de vista pessoas, colaboração e a experiência do candidato.",
+    "Nos primeiros 90 dias, meu objetivo é criar clareza sobre o funil, colocar as prioridades em movimento e construir uma rotina de gestão que permaneça depois do trimestre.",
+    "Captação e clima caminham juntos: resultados sustentáveis dependem de processos, dados e pessoas trabalhando na mesma direção.",
   ],
 };
-
-/* ---------------------------------------------------------------- *
- * 16 — Encerramento
- * ---------------------------------------------------------------- */
 
 export const SLIDE_16: CoverContent = {
-  badge: "Obrigado(a)",
-  title: "Vamos construir os próximos 90 dias",
-  subtitle: "iCEV — Instituto de Ensino Superior | Teresina/PI",
+  badge: "OBRIGADO(A)",
+  title: "Antonio Fontes",
+  subtitle: "Proposta de Atuação — Coordenador(a) de Marketing",
   lines: [
-    "Proposta de Atuação — Coordenador(a) de Marketing",
-    "[Seu nome completo] | [seu@email.com] | [(00) 00000-0000]",
+    "comfontes@gmail.com",
+    "(86) 99997-4164",
   ],
 };
 
-/* ---------------------------------------------------------------- *
- * Índice do deck
- * ---------------------------------------------------------------- */
-
 export const SLIDE_TITLES = [
-  "Capa",
-  "Sumário",
-  "Contexto",
-  "Diagnóstico Inicial",
-  "Mês 1 — Diagnóstico e Planejamento",
-  "Mês 2 — Implementação",
-  "Mês 3 — Otimização e Resultados",
-  "Mensagem por Curso",
-  "Canais e Ferramentas",
-  "Jornada do Candidato",
-  "Clima Organizacional e Engajamento",
-  "Indicadores e KPIs",
-  "Resultados Esperados",
-  "Diferenciais da Proposta",
-  "Conclusão",
-  "Encerramento",
+  "Capa", "Visão Executiva", "Leitura do Desafio", "Diagnóstico Inicial",
+  "Mês 1 — Diagnóstico e Planejamento", "Mês 2 — Implementação", "Mês 3 — Otimização e Resultados",
+  "Estratégia por Curso", "Mix de Canais", "Jornada do Candidato", "Clima e Engajamento",
+  "Indicadores e KPIs", "Resultados Esperados", "Diferenciais da Proposta", "Fechamento", "Encerramento",
 ] as const;
 
 export const TOTAL_SLIDES = SLIDE_TITLES.length;
