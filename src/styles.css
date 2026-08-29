@@ -23,15 +23,42 @@
 .slide-content { width:1920px; height:1080px; overflow:hidden; position:relative; --slide-title-lg:104px; --slide-title:88px; --slide-subtitle:52px; --slide-body-lg:40px; --slide-body:32px; --slide-caption:24px; --slide-kicker:22px; --slide-chrome:20px; }
 .slide-title-lg { font-size:var(--slide-title-lg); line-height:1; letter-spacing:-0.05em; font-weight:800; } .slide-title { font-size:var(--slide-title); line-height:1.05; letter-spacing:-0.04em; font-weight:800; } .slide-subtitle { font-size:var(--slide-subtitle); line-height:1.15; letter-spacing:-0.025em; font-weight:500; } .slide-heading { font-size:46px; line-height:1.1; letter-spacing:-0.03em; font-weight:700; } .slide-body-lg { font-size:var(--slide-body-lg); line-height:1.22; } .slide-body { font-size:var(--slide-body); line-height:1.28; } .slide-caption { font-size:var(--slide-caption); line-height:1.25; } .slide-kicker { font-size:var(--slide-kicker); line-height:1.1; letter-spacing:0.16em; text-transform:uppercase; font-weight:700; } .slide-chrome,.slide-badge,.slide-footer,.slide-page { font-size:var(--slide-chrome); line-height:1.15; } .slide-badge,.slide-page { white-space:nowrap; } .slide-numeral { font-size:68px; line-height:1; letter-spacing:-0.04em; font-weight:800; }
 
-/* Entrada elegante dos slides: fade + pequeno deslocamento, sem exagero. */
-.slide-transition-enter { animation: slide-content-in 520ms cubic-bezier(.22,.61,.36,1) both; transform-origin:center center; }
-@keyframes slide-content-in { from { opacity:0; transform:translateY(12px) scale(.995); filter:blur(1px); } to { opacity:1; transform:translateY(0) scale(1); filter:blur(0); } }
-.slide-transition-enter .slide-kicker { animation: element-in 420ms 80ms cubic-bezier(.22,.61,.36,1) both; }
-.slide-transition-enter .slide-title,.slide-transition-enter .slide-title-lg { animation: element-in 460ms 130ms cubic-bezier(.22,.61,.36,1) both; }
-.slide-transition-enter .slide-heading { animation: element-in 440ms 190ms cubic-bezier(.22,.61,.36,1) both; }
-.slide-transition-enter .slide-body,.slide-transition-enter .slide-body-lg,.slide-transition-enter .slide-caption { animation: element-in 440ms 240ms cubic-bezier(.22,.61,.36,1) both; }
-@keyframes element-in { from { opacity:0; transform:translateY(7px); } to { opacity:1; transform:translateY(0); } }
-@media (prefers-reduced-motion: reduce) { .slide-transition-enter,.slide-transition-enter .slide-kicker,.slide-transition-enter .slide-title,.slide-transition-enter .slide-title-lg,.slide-transition-enter .slide-heading,.slide-transition-enter .slide-body,.slide-transition-enter .slide-body-lg,.slide-transition-enter .slide-caption { animation:none !important; filter:none !important; transform:none !important; } }
+/* Motion system: visual hierarchy changes by semantic role, while preserving layout. */
+.slide-transition-enter { animation: slide-enter 560ms cubic-bezier(.22,.61,.36,1) both; transform-origin:center; }
+.slide-transition-enter .slide-kicker { animation: kicker-enter 460ms 40ms cubic-bezier(.16,1,.3,1) both; }
+.slide-transition-enter .slide-title,.slide-transition-enter .slide-title-lg { animation: title-enter 620ms 90ms cubic-bezier(.16,1,.3,1) both; }
+.slide-transition-enter .slide-subtitle { animation: subtitle-enter 520ms 170ms cubic-bezier(.22,.61,.36,1) both; }
+.slide-transition-enter .slide-heading { animation: heading-enter 500ms 180ms cubic-bezier(.22,.61,.36,1) both; }
+.slide-transition-enter .slide-body-lg,.slide-transition-enter .slide-body { animation: body-enter 480ms 250ms cubic-bezier(.22,.61,.36,1) both; }
+.slide-transition-enter .slide-caption { animation: caption-enter 440ms 300ms ease-out both; }
+.slide-transition-enter .slide-numeral { animation: numeral-enter 680ms 120ms cubic-bezier(.16,1,.3,1) both; }
+.slide-transition-enter .slide-badge { animation: badge-enter 480ms 260ms cubic-bezier(.16,1,.3,1) both; }
+.slide-transition-enter .slide-page,.slide-transition-enter .slide-footer,.slide-transition-enter .slide-chrome { animation: chrome-enter 360ms 360ms ease-out both; }
+
+/* Cards reveal in a controlled sequence, not all at once. */
+.slide-transition-enter [class*="grid"] > * { animation: card-enter 500ms cubic-bezier(.22,.61,.36,1) both; }
+.slide-transition-enter [class*="grid"] > *:nth-child(1) { animation-delay:110ms; }
+.slide-transition-enter [class*="grid"] > *:nth-child(2) { animation-delay:180ms; }
+.slide-transition-enter [class*="grid"] > *:nth-child(3) { animation-delay:250ms; }
+.slide-transition-enter [class*="grid"] > *:nth-child(4) { animation-delay:320ms; }
+.slide-transition-enter [class*="grid"] > *:nth-child(5) { animation-delay:390ms; }
+.slide-transition-enter [class*="grid"] > *:nth-child(6) { animation-delay:460ms; }
+
+@keyframes slide-enter { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+@keyframes kicker-enter { from { opacity:0; transform:translateX(-18px); letter-spacing:.23em; } to { opacity:1; transform:none; letter-spacing:.16em; } }
+@keyframes title-enter { from { opacity:0; transform:translateY(22px) scale(.985); } to { opacity:1; transform:none; } }
+@keyframes subtitle-enter { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+@keyframes heading-enter { from { opacity:0; transform:translateX(-10px); } to { opacity:1; transform:none; } }
+@keyframes body-enter { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+@keyframes caption-enter { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:none; } }
+@keyframes numeral-enter { from { opacity:0; transform:translateY(26px) scale(.90); } to { opacity:1; transform:none; } }
+@keyframes badge-enter { from { opacity:0; transform:scale(.94); } to { opacity:1; transform:none; } }
+@keyframes chrome-enter { from { opacity:0; } to { opacity:1; } }
+@keyframes card-enter { from { opacity:0; transform:translateY(16px) scale(.975); } to { opacity:1; transform:none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .slide-transition-enter,.slide-transition-enter .slide-kicker,.slide-transition-enter .slide-title,.slide-transition-enter .slide-title-lg,.slide-transition-enter .slide-subtitle,.slide-transition-enter .slide-heading,.slide-transition-enter .slide-body-lg,.slide-transition-enter .slide-body,.slide-transition-enter .slide-caption,.slide-transition-enter .slide-numeral,.slide-transition-enter .slide-badge,.slide-transition-enter .slide-page,.slide-transition-enter .slide-footer,.slide-transition-enter .slide-chrome,.slide-transition-enter [class*="grid"] > * { animation:none !important; transform:none !important; filter:none !important; }
+}
 
 [data-editable="true"] { outline:none; border-radius:6px; transition:box-shadow 140ms ease,background-color 140ms ease; }
 [data-editable="true"][contenteditable="true"]:hover { box-shadow:0 0 0 2px oklch(0.62 0.175 8 / 0.35); }
