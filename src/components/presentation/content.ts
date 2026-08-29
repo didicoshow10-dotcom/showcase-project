@@ -1,11 +1,11 @@
-/** Conteúdo padrão da apresentação — Proposta de Atuação iCEV. */
+/** Conteúdo da apresentação: Proposta de Atuação iCEV. */
 
 export const DECK_META = {
-  title: "Proposta de Atuação — Coordenador de Marketing",
+  title: "Proposta de Atuação: Coordenador de Marketing",
   shortTitle: "Proposta de Atuação · iCEV",
   subtitle: "iCEV | Use ← → para navegar, G para a grade",
-  institutionFooter: "Instituto de Ensino Superior | iCEV — Teresina/PI",
-  deckFooter: "iCEV | Proposta de Atuação — Coordenador de Marketing",
+  institutionFooter: "Instituto de Ensino Superior | iCEV: Teresina/PI",
+  deckFooter: "iCEV | Proposta de Atuação: Coordenador de Marketing",
 } as const;
 
 export interface CoverContent { badge: string; title: string; subtitle: string; lines: string[]; }
@@ -90,15 +90,15 @@ export const SLIDE_04 = {
 export const MONTH_TABS = ["1º mês", "2º mês", "3º mês"] as const;
 
 export const SLIDE_05: MonthContent = {
-  kicker: "PLANO DOS 3 PRIMEIROS MESES", title: "1º mês — Diagnóstico e planejamento", activeTab: 0,
+  kicker: "PLANO DOS 3 PRIMEIROS MESES", title: "1º mês: Diagnóstico e planejamento", activeTab: 0,
   pillars: ["Diagnosticar", "Alinhar", "Priorizar"],
   leftItems: ["Auditar funil, canais, campanhas, conteúdo, CRM e jornada do candidato.", "Entrevistar Marketing, Comercial, Coordenações e lideranças.", "Mapear gargalos, quick wins e oportunidades por oferta."],
-  rightItems: ["Definir baseline e painel inicial de KPIs.", "Escolher 3–5 prioridades para o trimestre, evitando dispersão.", "Criar calendário de campanhas e rotina de alinhamento entre áreas."],
+  rightItems: ["Definir baseline e painel inicial de KPIs.", "Escolher 3 a 5 prioridades para o trimestre, evitando dispersão.", "Criar calendário de campanhas e rotina de alinhamento entre áreas."],
   deliverableLabel: "ENTREGA DO MÊS", deliverable: "Diagnóstico 360º + prioridades + plano tático de 90 dias",
 };
 
 export const SLIDE_06: MonthContent = {
-  kicker: "PLANO DOS 3 PRIMEIROS MESES", title: "2º mês — Implementação", activeTab: 1,
+  kicker: "PLANO DOS 3 PRIMEIROS MESES", title: "2º mês: Implementação", activeTab: 1,
   pillars: ["Executar", "Testar", "Acompanhar"],
   leftItems: ["Lançar campanhas prioritárias por oferta, público e etapa do funil.", "Criar conteúdos de prova social, carreira, rotina acadêmica e diferenciais.", "Ativar landing pages, remarketing, WhatsApp e fluxos de nutrição."],
   rightItems: ["Definir responsáveis, prazos e critérios de aprovação.", "Implantar reunião semanal Marketing + Comercial baseada no funil.", "Testar criativos, ofertas, públicos, CTAs e abordagens de atendimento."],
@@ -106,23 +106,22 @@ export const SLIDE_06: MonthContent = {
 };
 
 export const SLIDE_07: MonthContent = {
-  kicker: "PLANO DOS 3 PRIMEIROS MESES", title: "3º mês — Otimização e resultados", activeTab: 2,
+  kicker: "PLANO DOS 3 PRIMEIROS MESES", title: "3º mês: Otimização e resultados", activeTab: 2,
   pillars: ["Medir", "Otimizar", "Escalar"],
-  leftItems: ["Comparar resultados com o baseline e localizar os maiores ganhos e gargalos.", "Analisar performance por escola/curso, canal, campanha e etapa do funil.", "Cortar desperdícios e reforçar ações com melhor conversão e qualidade de lead."],
+  leftItems: ["Comparar resultados com o baseline e localizar os maiores ganhos e gargalos.", "Analisar performance por escola ou curso, canal, campanha e etapa do funil.", "Cortar desperdícios e reforçar ações com melhor conversão e qualidade de lead."],
   rightItems: ["Realocar verba e esforço para canais e mensagens vencedores.", "Consolidar processos, aprendizados e responsabilidades do time.", "Apresentar roadmap do próximo trimestre com metas, testes e prioridades."],
   deliverableLabel: "ENTREGA DO MÊS", deliverable: "Relatório executivo + otimizações + roadmap do próximo trimestre",
 };
 
 export const SLIDE_08 = {
-  kicker: "CAPTAÇÃO · PROPOSTA DE VALOR",
-  title: "Tornar os cursos desejáveis — e transformar desejo em matrícula",
+  kicker: "CAPTAÇÃO · ATRATIVIDADE",
+  title: "Como tornar os cursos mais desejáveis e vendáveis",
   cards: [
-    { badge: "1 · ENTENDER O QUE MOVE A ESCOLHA", body: "Mapear, no diagnóstico, as motivações e objeções de cada público: carreira, mercado, experiência prática, reconhecimento, investimento e segurança na decisão.", meta: "Ouvir candidatos, alunos, Comercial e Coordenações antes de definir a promessa de campanha." },
-    { badge: "2 · TRANSFORMAR CURSO EM BENEFÍCIO", body: "Sair da comunicação baseada em atributos e mostrar a transformação: o que o aluno aprende fazendo, que experiências vive e como a formação o aproxima do mercado.", meta: "Cada oferta precisa responder: ‘Por que eu escolheria este curso?’" },
-    { badge: "3 · MOSTRAR PARA GERAR DESEJO", body: "Criar conteúdos que permitam ao candidato visualizar a experiência: professores, alunos, projetos, desafios, ambientes, eventos, bastidores e histórias reais.", meta: "Descobrir → Desejar → Considerar → Decidir." },
-    { badge: "4 · CONVERTER A INTENÇÃO", body: "Conectar a proposta de valor a uma jornada simples: anúncio/conteúdo → página ou WhatsApp → CRM → atendimento consultivo → inscrição → matrícula.", meta: "Marketing e Comercial precisam vender a mesma promessa, com SLA e follow-up definidos." },
+    { badge: "01 · ENTENDER O CANDIDATO", body: "Descobrir o que pesa na escolha: carreira, mercado, experiência prática, reconhecimento, investimento e segurança na decisão.", meta: "Ouvir candidatos, alunos e equipe antes de definir a promessa." },
+    { badge: "02 · VENDER TRANSFORMAÇÃO", body: "Trocar a comunicação de atributos por benefícios concretos: o que o aluno aprende fazendo, que experiências terá e como isso o aproxima do mercado.", meta: "Pergunta central: por que este curso vale a escolha?" },
+    { badge: "03 · PROVAR E CONVERTER", body: "Mostrar a experiência por meio de alunos, professores, projetos, eventos e histórias reais. Depois, levar o interesse para uma jornada simples até a matrícula.", meta: "Descobrir → Desejar → Considerar → Decidir" },
   ] satisfies BadgeCard[],
-  note: "A lógica: diferencial real → proposta de valor → mensagem → prova → experiência → conversão.",
+  note: "Princípio: não vender apenas uma graduação. Vender uma perspectiva de futuro que o candidato consiga enxergar.",
 };
 
 export const SLIDE_09 = {
@@ -135,14 +134,14 @@ export const SLIDE_09 = {
     { badge: "Landing pages", body: "Transformar interesse em ação", meta: "Oferta clara • prova • CTA • formulário curto • rastreamento" },
     { badge: "WhatsApp + CRM", body: "Transformar lead em oportunidade e matrícula", meta: "SLA • follow-up • nutrição • recuperação de abandono" },
   ] satisfies BadgeCard[],
-  note: "Eventos, experiências no campus e parcerias entram como canais de confiança e consideração — com rastreamento da origem sempre que possível.",
+  note: "Eventos, experiências no campus e parcerias entram como canais de confiança e consideração, com rastreamento da origem sempre que possível.",
 };
 
 export const SLIDE_10 = {
   kicker: "JORNADA DO CANDIDATO", title: "Menos atrito. Mais velocidade. Mais conversão.", sectionLabel: "O que muda em cada etapa",
   steps: [
     { number: "01", title: "Descoberta", body: "Conteúdo e mídia levam o público certo para uma proposta de valor clara." },
-    { number: "02", title: "Lead", body: "Página/formulário simples, origem registrada e próximo passo explícito." },
+    { number: "02", title: "Lead", body: "Página ou formulário simples, origem registrada e próximo passo explícito." },
     { number: "03", title: "Atendimento", body: "Lead quente recebe contato rápido, consultivo e contextualizado ao interesse." },
     { number: "04", title: "Decisão", body: "Objeções são tratadas com prova social, diferenciais, conteúdo e follow-up." },
     { number: "05", title: "Matrícula", body: "Processo simples, recuperação de abandono e comunicação clara até a conclusão." },
@@ -162,7 +161,7 @@ export const SLIDE_11 = {
 };
 
 export const SLIDE_12 = {
-  kicker: "GESTÃO POR DADOS", title: "KPIs que mostram onde agir — não apenas o que aconteceu",
+  kicker: "GESTÃO POR DADOS", title: "KPIs que mostram onde agir, não apenas o que aconteceu",
   headers: { indicator: "Indicador", target: "Referência em 3 meses", frequency: "Frequência" },
   rows: [
     { indicator: "Leads qualificados", target: "Crescer vs. baseline", frequency: "Semanal" },
@@ -175,7 +174,7 @@ export const SLIDE_12 = {
     { indicator: "Engajamento social", target: "+25%", frequency: "Semanal" },
     { indicator: "Clima / satisfação", target: "≥ 85%", frequency: "Mensal" },
   ] satisfies KpiRow[],
-  note: "As metas são referências iniciais; o baseline real será definido no diagnóstico do 1º mês.",
+  note: "As metas são referências iniciais. O baseline real será definido no diagnóstico do 1º mês.",
 };
 
 export const SLIDE_13 = {
@@ -202,8 +201,8 @@ export const SLIDE_15: CoverContent = {
 };
 
 export const SLIDE_16: CoverContent = {
-  badge: "ENCERRAMENTO", title: "OBRIGADO!", subtitle: "Proposta de Atuação — Coordenador de Marketing", lines: ["Antonio Fontes", "comfontes@gmail.com", "(86) 99997-4164"],
+  badge: "ENCERRAMENTO", title: "OBRIGADO!", subtitle: "Proposta de atuação", lines: ["Coordenador de Marketing iCEV", "Antonio Fontes", "comfontes@gmail.com", "(86) 99997-4164"],
 };
 
-export const SLIDE_TITLES = ["Capa", "Visão Executiva", "Leitura do Desafio", "Diagnóstico Inicial", "Mês 1 — Diagnóstico e Planejamento", "Mês 2 — Implementação", "Mês 3 — Otimização e Resultados", "Proposta de Valor e Atratividade", "Mix de Canais", "Jornada do Candidato", "Clima e Engajamento", "Indicadores e KPIs", "Resultados Esperados", "Diferenciais da Proposta", "Fechamento", "Encerramento"] as const;
+export const SLIDE_TITLES = ["Capa", "Visão Executiva", "Leitura do Desafio", "Diagnóstico Inicial", "Mês 1: Diagnóstico e Planejamento", "Mês 2: Implementação", "Mês 3: Otimização e Resultados", "Atratividade dos Cursos", "Mix de Canais", "Jornada do Candidato", "Clima e Engajamento", "Indicadores e KPIs", "Resultados Esperados", "Diferenciais da Proposta", "Fechamento", "Encerramento"] as const;
 export const TOTAL_SLIDES = SLIDE_TITLES.length;
