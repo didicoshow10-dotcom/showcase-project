@@ -10,82 +10,27 @@ interface BadgeCardsSlideProps {
   cards: BadgeCard[];
   columns: 2 | 3;
   note?: string;
-  /** Fixed card height keeps rows aligned when copy lengths differ. */
   cardMinHeight?: number;
-  /** Tighter padding and type so two rows of cards still fit the canvas. */
   compact?: boolean;
 }
 
-/** 08, 09 and 11 — grid of cards led by a pill badge. */
-export function BadgeCardsSlide({
-  index,
-  scale,
-  kicker,
-  title,
-  cards,
-  columns,
-  note,
-  cardMinHeight = 300,
-  compact = false,
-}: BadgeCardsSlideProps) {
+export function BadgeCardsSlide({ index, scale, kicker, title, cards, columns, note, compact = false }: BadgeCardsSlideProps) {
+  const twoRows = cards.length > columns;
+  const cardHeight = twoRows ? 225 : 310;
   return (
     <ContentFrame index={index} scale={scale} kicker={kicker} title={title}>
-      <div
-        className={compact ? "grid gap-8" : "grid gap-10"}
-        style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
-      >
+      <div className="grid gap-7" style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}>
         {cards.map((card, cardIndex) => (
-          <article
-            key={cardIndex}
-            className={`flex flex-col rounded-[26px] border border-lilac-deep/60 bg-card ${
-              compact ? "px-9 py-8" : "px-11 py-10"
-            }`}
-            style={{ boxShadow: "var(--shadow-card)", minHeight: cardMinHeight }}
-          >
-            <span
-              className={`slide-chrome inline-flex self-start rounded-full bg-plum font-bold uppercase tracking-[0.14em] text-primary-foreground ${
-                compact ? "px-6 py-2" : "px-7 py-3"
-              }`}
-            >
-              <EditableText
-                id={`badge-card-badge-${index}-${cardIndex}`}
-                value={card.badge}
-              />
+          <article key={cardIndex} className={`flex flex-col rounded-[22px] border border-lilac-deep/60 bg-card ${compact ? "px-8 py-7" : "px-9 py-8"}`} style={{ boxShadow: "var(--shadow-card)", minHeight: cardHeight }}>
+            <span className="slide-chrome inline-flex self-start rounded-full bg-plum px-5 py-2 font-bold uppercase tracking-[0.12em] text-primary-foreground">
+              <EditableText id={`badge-card-badge-${index}-${cardIndex}`} value={card.badge} singleLine />
             </span>
-
-            <EditableText
-              id={`badge-card-body-${index}-${cardIndex}`}
-              as="p"
-              value={card.body}
-              className={`mt-6 block text-plum-deep ${
-                compact ? "slide-body font-semibold" : "slide-body-lg mt-8"
-              }`}
-            />
-
-            {card.meta ? (
-              <EditableText
-                id={`badge-card-meta-${index}-${cardIndex}`}
-                as="p"
-                value={card.meta}
-                className={`mt-4 block text-crimson ${
-                  compact ? "slide-caption" : "slide-body mt-6"
-                }`}
-              />
-            ) : null}
+            <EditableText id={`badge-card-body-${index}-${cardIndex}`} as="p" value={card.body} className={`mt-4 block text-plum-deep ${twoRows ? "slide-body" : "slide-body-lg"}`} />
+            {card.meta ? <EditableText id={`badge-card-meta-${index}-${cardIndex}`} as="p" value={card.meta} className="mt-3 block slide-caption text-crimson" /> : null}
           </article>
         ))}
       </div>
-
-
-      {note ? (
-        <EditableText
-          id={`badge-note-${index}`}
-          as="p"
-          value={note}
-          className="slide-subtitle mt-12 block text-plum-soft"
-          singleLine
-        />
-      ) : null}
+      {note ? <EditableText id={`badge-note-${index}`} as="p" value={note} className="slide-caption mt-6 block text-plum-soft" /> : null}
     </ContentFrame>
   );
 }
