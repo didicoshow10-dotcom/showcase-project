@@ -34,14 +34,22 @@ async function waitForAssets(doc: Document) {
 
 async function capture(slide: HTMLElement) {
   const original = slide.style.cssText;
-  const animatedNodes: Array<[HTMLElement, string]> = [];
+  const temporaryStyles: Array<[HTMLElement, string]> = [];
 
   slide.style.cssText += `;position:fixed!important;left:0!important;top:0!important;width:${W}px!important;height:${H}px!important;max-width:none!important;max-height:none!important;display:block!important;visibility:visible!important;opacity:1!important;transform:none!important;z-index:2147483647!important;pointer-events:none!important;overflow:visible!important;`;
+
+  // The cards already have a visible border/background. Their design shadow
+  // is decorative, but html2canvas-pro can rasterize it as a second solid
+  // rectangle. Disable article shadows only while generating the export.
+  slide.querySelectorAll<HTMLElement>("article").forEach((node) => {
+    temporaryStyles.push([node, node.style.cssText]);
+    node.style.boxShadow = "none";
+  });
 
   slide.querySelectorAll<HTMLElement>("*").forEach((node) => {
     const computed = getComputedStyle(node);
     if (computed.animationName !== "none" || computed.transitionProperty !== "none") {
-      animatedNodes.push([node, node.style.cssText]);
+      temporaryStyles.push([node, node.style.cssText]);
       node.style.animation = "none";
       node.style.transition = "none";
     }
@@ -66,7 +74,7 @@ async function capture(slide: HTMLElement) {
       y: 0,
     });
   } finally {
-    animatedNodes.forEach(([node, css]) => { node.style.cssText = css; });
+    temporaryStyles.reverse().forEach(([node, css]) => { node.style.cssText = css; });
     slide.style.cssText = original;
   }
 }
